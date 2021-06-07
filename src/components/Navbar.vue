@@ -39,4 +39,7 @@ export default {
   text-decoration: none;
   color: white;
 }
+.navbar-links > div > a:hover {
+  color: rgb(212, 238, 238);
+}
 </style>

@@ -20,7 +20,7 @@
         onfocus="this.placeholder = ''"
         onblur="this.placeholder = 'Подтверждение пароля'"
       />
-      <button type="submit" id="register-button">Подтвердить</button>
+      <button type="submit" id="register-button">Зарегестрироваться</button>
     </form>
   </div>
 </template>
@@ -120,6 +120,12 @@ form button {
   cursor: pointer;
   font-size: 18px;
   transition-duration: 0.25s;
+}
+form button:hover {
+  transition-duration: 0.25s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
+    0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
+    0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
 }
 form button:hover {
   background-color: #f5f7f9;
