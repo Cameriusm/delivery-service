@@ -3,24 +3,20 @@
     <!-- <Navbar msg="Welcome to Your Vue.js App" /> -->
     <!-- <h1>Главная страница</h1> -->
     <div class="restaurant-option">
-      <h1>Выбор ресторана</h1>
-      <div class="restaurant-option-checkboxes">
-        <!-- <div v-on:click="myFilter" v-bind:class="{ active: isActive }">
-          <p>Delivery club</p>
+      <h1>Введите ссылку на ресторан</h1>
+      <form class="form">
+        <div class="restaurant-option-checkboxes">
+          <input
+            type="text"
+            placeholder="Ссылка"
+            onfocus="this.placeholder = ''"
+            onblur="this.placeholder = 'Ссылка'"
+          />
         </div>
-        <div v-on:click="myFilter" v-bind:class="{ active: isActive }">
-          <p>Yandex food</p>
-        </div> -->
-        <div
-          v-for="item in items"
-          :class="{ active: selected == item.id }"
-          @click="myFilter(item.id)"
-          v-bind:key="item.id"
-        >
-          <p>{{ item.msg }}</p>
-        </div>
-      </div>
-      <button class="restaurant-button-confirm">Подтвердить</button>
+        <button type="submit" class="restaurant-button-confirm">
+          Подтвердить
+        </button>
+      </form>
     </div>
   </div>
 </template>
@@ -130,6 +126,11 @@ h1 {
   /* background-color: #53e3a6; */
   border-radius: 15px;
 }
+.restaurant-option-checkboxes > div:hover {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
+    0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
+    0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+}
 .restaurant-option-checkboxes > div {
   cursor: pointer;
   margin-top: 15px;
@@ -205,5 +206,61 @@ h1 {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
     0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
     0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+}
+
+form {
+  padding: 20px 0;
+  position: relative;
+  z-index: 2;
+}
+
+form input::placeholder {
+  color: white;
+}
+form input {
+  appearance: none;
+  outline: 0;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 220px;
+  border-radius: 3px;
+  padding: 10px 15px;
+  margin: 0 auto 10px auto;
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  color: white;
+  transition-duration: 0.25s;
+  font-weight: 300;
+}
+form input:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+form input:focus {
+  background-color: white;
+  width: 300px;
+  color: #53e3a6;
+}
+form button {
+  appearance: none;
+  outline: 0;
+  background-color: white;
+  border: 0;
+  padding: 10px 15px;
+  color: #53e3a6;
+  border-radius: 3px;
+  width: 250px;
+  cursor: pointer;
+  font-size: 18px;
+  transition-duration: 0.25s;
+}
+form button:hover {
+  transition-duration: 0.25s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
+    0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
+    0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+}
+form button:hover {
+  background-color: #f5f7f9;
 }
 </style>

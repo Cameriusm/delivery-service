@@ -1,9 +1,11 @@
 import VueRouter from 'vue-router';
 
-import Login from './components/Login.vue';
+import Login from './Pages/Login.vue';
 // import App from './App.vue';
-import Register from './components/Register.vue';
-import MainPage from './components/MainPage.vue';
+import Register from './Pages/Register.vue';
+// import Login from './components/Login.vue';
+// import Restaurant from './components/Restaurant.vue';
+import MainPage from './Pages/MainPage.vue';
 // import Navbar from './components/Navbar.vue';
 
 let routes = [
@@ -12,12 +14,12 @@ let routes = [
     component: Login,
   },
   {
-    path: '/',
-    component: MainPage,
-  },
-  {
     path: '/register',
     component: Register,
+  },
+  {
+    path: '/',
+    component: MainPage,
   },
 ];
 

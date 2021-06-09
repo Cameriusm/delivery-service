@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar msg="Welcome to Your Vue.js App" />
+    <Navbar />
     <router-view></router-view>
     <!-- <Login msg="Welcome to Your Vue.js App" />
     <Register msg="Welcome to Your Vue.js App" /> -->

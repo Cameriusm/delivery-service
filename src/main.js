@@ -2,6 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import VueRouter from 'vue-router';
 import routes from './routes.js';
+import { store } from './store/store';
 // import Login from './components/Login.vue';
 
 // import Register from './components/Register.vue';
@@ -24,5 +25,6 @@ Vue.config.productionTip = false;
 
 new Vue({
   render: (h) => h(App),
+  store: store,
   router: routes,
 }).$mount('#app');

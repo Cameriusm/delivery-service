@@ -2,18 +2,20 @@
   <div class="hello">
     <!-- <Navbar msg="Welcome to Your Vue.js App" /> -->
     <h1>Авторизация</h1>
-    <form class="form">
+    <form class="form" @submit.prevent="login">
       <input
         type="email"
         placeholder="Email"
         onfocus="this.placeholder = ''"
         onblur="this.placeholder = 'Email'"
+        v-model="username"
       />
       <input
         type="password"
         placeholder="Пароль"
         onfocus="this.placeholder = ''"
         onblur="this.placeholder = 'Пароль'"
+        v-model="password"
       />
       <button type="submit" id="login-button">Войти</button>
     </form>
@@ -24,6 +26,17 @@
 // import Navbar from './Navbar.vue';
 export default {
   name: 'Login',
+  data() {
+    return {
+      username: '',
+      password: '',
+    };
+  },
+  methods: {
+    login() {
+      // this.
+    },
+  },
   props: {
     msg: String,
   },
