@@ -1,9 +1,9 @@
 <template>
-  <div class="hello">
+  <div class="restaurant">
     <!-- <Navbar msg="Welcome to Your Vue.js App" /> -->
     <!-- <h1>Главная страница</h1> -->
     <div class="restaurant-option">
-      <h1>Введите ссылку на ресторан</h1>
+      <h1>Введите ссылку на Ресторан:</h1>
       <form class="form">
         <div class="restaurant-option-checkboxes">
           <input
@@ -66,11 +66,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1 {
-  padding-top: 100px;
-  margin-bottom: 20px;
+  padding-top: 140px;
   color: white;
   font-weight: 200;
   font-family: 'Source Sans Pro', sans-serif;
+  margin-bottom: 20px;
 }
 /* .restaurant-option-checkboxes > div:hover {
   font-size: 18px;
@@ -102,7 +102,7 @@ h1 {
   background-color: white;
   border: 0;
   padding: 10px 15px;
-  color: #53e3a6;
+  color: #5d34ec;
   border-radius: 3px;
   width: 250px;
   cursor: pointer;
@@ -115,16 +115,6 @@ h1 {
 .restaurant-option h2 {
   padding-top: 15px;
   padding-bottom: 20px;
-}
-.restaurant-option {
-  color: white;
-  margin: 0 auto;
-
-  width: 350px;
-  height: 325px;
-  /* border: 1px solid black; */
-  /* background-color: #53e3a6; */
-  border-radius: 15px;
 }
 .restaurant-option-checkboxes > div:hover {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
@@ -163,39 +153,37 @@ h1 {
   flex-direction: column;
   align-items: center;
 }
-h1 {
-  padding-top: 100px;
-  color: white;
-  font-weight: 200;
-  font-family: 'Source Sans Pro', sans-serif;
-}
-.hello {
-  background-color: #51bda4;
+.restaurant {
+  background-image: linear-gradient(
+    109.6deg,
+    rgba(62, 161, 219, 1) 11.2%,
+    rgb(90, 50, 236) 100.2%
+  );
   height: 100vh;
 
   box-sizing: border-box;
 }
-.hello::-webkit-input-placeholder {
+.restaurant::-webkit-input-placeholder {
   /* WebKit browsers */
   font-family: 'Source Sans Pro', sans-serif;
   color: white;
   font-weight: 300;
 }
-.hello::-moz-placeholder {
+.restaurant::-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   font-family: 'Source Sans Pro', sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
-.hello::-moz-placeholder {
+.restaurant::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   font-family: 'Source Sans Pro', sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
-.hello::-ms-input-placeholder {
+.restaurant::-ms-input-placeholder {
   /* Internet Explorer 10+ */
   font-family: 'Source Sans Pro', sans-serif;
   color: white;
@@ -227,7 +215,7 @@ form input {
   padding: 10px 15px;
   margin: 0 auto 10px auto;
   display: block;
-  text-align: center;
+  text-align: left;
   font-size: 18px;
   color: white;
   transition-duration: 0.25s;
@@ -239,7 +227,7 @@ form input:hover {
 form input:focus {
   background-color: white;
   width: 300px;
-  color: #53e3a6;
+  color: #3ea1db;
 }
 form button {
   appearance: none;
@@ -247,9 +235,10 @@ form button {
   background-color: white;
   border: 0;
   padding: 10px 15px;
-  color: #53e3a6;
+  color: #3ea1db;
   border-radius: 3px;
   width: 250px;
+  margin: 10px;
   cursor: pointer;
   font-size: 18px;
   transition-duration: 0.25s;

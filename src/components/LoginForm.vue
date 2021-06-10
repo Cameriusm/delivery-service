@@ -1,6 +1,5 @@
 <template>
-  <div class="hello">
-    <!-- <Navbar msg="Welcome to Your Vue.js App" /> -->
+  <div class="login-form">
     <h1>Авторизация</h1>
     <form class="form" @submit.prevent="login">
       <input
@@ -8,6 +7,7 @@
         placeholder="Email"
         onfocus="this.placeholder = ''"
         onblur="this.placeholder = 'Email'"
+        required
         v-model="username"
       />
       <input
@@ -15,6 +15,7 @@
         placeholder="Пароль"
         onfocus="this.placeholder = ''"
         onblur="this.placeholder = 'Пароль'"
+        required
         v-model="password"
       />
       <button type="submit" id="login-button">Войти</button>
@@ -23,7 +24,6 @@
 </template>
 
 <script>
-// import Navbar from './Navbar.vue';
 export default {
   name: 'Login',
   data() {
@@ -34,55 +34,62 @@ export default {
   },
   methods: {
     login() {
-      // this.
+      this.$store
+        .dispatch('retrieveToken', {
+          username: this.username,
+          password: this.password,
+        })
+        .then(() => {
+          this.$router.push({ path: '/' });
+        });
     },
   },
   props: {
     msg: String,
   },
-  components: {
-    // Navbar,
-    // Login,
-    // Register,
-  },
+  components: {},
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1 {
-  padding-top: 100px;
+  padding-top: 180px;
   color: white;
   font-weight: 200;
   font-family: 'Source Sans Pro', sans-serif;
 }
-.hello {
-  background-color: #51bda4;
-  height: 100vh;
+.login-form {
+  background-image: linear-gradient(
+    109.6deg,
+    rgb(62, 161, 219) 11.2%,
+    rgba(93, 52, 236, 1) 100.2%
+  );
+  height: 100%;
 
   box-sizing: border-box;
 }
-.hello::-webkit-input-placeholder {
+.login-form::-webkit-input-placeholder {
   /* WebKit browsers */
   font-family: 'Source Sans Pro', sans-serif;
   color: white;
   font-weight: 300;
 }
-.hello::-moz-placeholder {
+.login-form::-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   font-family: 'Source Sans Pro', sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
-.hello::-moz-placeholder {
+.login-form::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   font-family: 'Source Sans Pro', sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
-.hello::-ms-input-placeholder {
+.login-form::-ms-input-placeholder {
   /* Internet Explorer 10+ */
   font-family: 'Source Sans Pro', sans-serif;
   color: white;
@@ -97,6 +104,7 @@ form {
 
 form input::placeholder {
   color: white;
+  text-align: left;
 }
 form input {
   appearance: none;
@@ -108,7 +116,7 @@ form input {
   padding: 10px 15px;
   margin: 0 auto 10px auto;
   display: block;
-  text-align: center;
+  text-align: left;
   font-size: 18px;
   color: white;
   transition-duration: 0.25s;
@@ -119,18 +127,20 @@ form input:hover {
 }
 form input:focus {
   background-color: white;
-  width: 300px;
-  color: #53e3a6;
+  width: 240px;
+  color: #3ea1db;
+  text-align: left;
 }
 form button {
   appearance: none;
+  margin-top: 10px;
   outline: 0;
   background-color: white;
   border: 0;
   padding: 10px 15px;
-  color: #53e3a6;
+  color: #5d34ec;
   border-radius: 3px;
-  width: 250px;
+  width: 200px;
   cursor: pointer;
   font-size: 18px;
   transition-duration: 0.25s;

@@ -1,25 +1,61 @@
 <template>
-  <div class="hello">
+  <div class="register-form">
     <h1>Регистрация</h1>
-    <form class="form">
+    <form class="form" @submit.prevent="register">
+      <div class="form-initials">
+        <input
+          type="text"
+          placeholder="Имя"
+          onfocus="this.placeholder = ''"
+          onblur="this.placeholder = 'Имя'"
+          required
+          v-model="first_name"
+        />
+        <input
+          type="text"
+          placeholder="Фамилия"
+          onfocus="this.placeholder = ''"
+          onblur="this.placeholder = 'Фамилия'"
+          required
+          v-model="second_name"
+        />
+      </div>
+      <input
+        type="text"
+        pattern="[789][0-9]{10}"
+        placeholder="Номер телефона"
+        maxlength="11"
+        onfocus="this.placeholder = ''"
+        onblur="this.placeholder = 'Номер телефона'"
+        required
+        v-model="phone_number"
+      />
+      <input
+        type="text"
+        placeholder="Адрес проживания"
+        onfocus="this.placeholder = ''"
+        onblur="this.placeholder = 'Адрес проживания'"
+        maxlength="255"
+        required
+        v-model="address"
+      />
       <input
         type="email"
         placeholder="Email"
         onfocus="this.placeholder = ''"
         onblur="this.placeholder = 'Email'"
+        required
+        v-model="email"
       />
       <input
         type="password"
         placeholder="Пароль"
         onfocus="this.placeholder = ''"
         onblur="this.placeholder = 'Пароль'"
+        required
+        v-model="password"
       />
-      <input
-        type="password"
-        placeholder="Подтверждение пароля"
-        onfocus="this.placeholder = ''"
-        onblur="this.placeholder = 'Подтверждение пароля'"
-      />
+
       <button type="submit" id="register-button">Зарегестрироваться</button>
     </form>
   </div>
@@ -31,44 +67,74 @@ export default {
   props: {
     msg: String,
   },
+  data() {
+    return {
+      first_name: '',
+      second_name: '',
+      phone_number: '',
+      address: '',
+      email: '',
+      password: '',
+    };
+  },
+  methods: {
+    register() {
+      this.$store
+        .dispatch('register', {
+          first_name: this.first_name,
+          second_name: this.second_name,
+          phone_number: this.phone_number,
+          address: this.address,
+          email: this.email,
+          password: this.password,
+        })
+        .then(() => {
+          this.$router.push({ path: '/login' });
+        });
+    },
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1 {
-  padding-top: 100px;
+  padding-top: 130px;
   color: white;
   font-weight: 200;
   font-family: 'Source Sans Pro', sans-serif;
 }
-.hello {
-  background-color: #51bda4;
+.register-form {
+  background-image: linear-gradient(
+    109.6deg,
+    rgba(62, 161, 219, 1) 11.2%,
+    rgba(93, 52, 236, 1) 100.2%
+  );
   height: 100vh;
 
   box-sizing: border-box;
 }
-.hello::-webkit-input-placeholder {
+.register-form::-webkit-input-placeholder {
   /* WebKit browsers */
   font-family: 'Source Sans Pro', sans-serif;
   color: white;
   font-weight: 300;
 }
-.hello::-moz-placeholder {
+.register-form::-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   font-family: 'Source Sans Pro', sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
-.hello::-moz-placeholder {
+.register-form::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   font-family: 'Source Sans Pro', sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
-.hello::-ms-input-placeholder {
+.register-form::-ms-input-placeholder {
   /* Internet Explorer 10+ */
   font-family: 'Source Sans Pro', sans-serif;
   color: white;
@@ -83,18 +149,19 @@ form {
 
 form input::placeholder {
   color: white;
+  text-align: left;
 }
 form input {
   appearance: none;
   outline: 0;
   border: 1px solid rgba(255, 255, 255, 0.4);
   background-color: rgba(255, 255, 255, 0.2);
-  width: 220px;
+  width: 400px;
   border-radius: 3px;
   padding: 10px 15px;
   margin: 0 auto 10px auto;
   display: block;
-  text-align: center;
+  text-align: left;
   font-size: 18px;
   color: white;
   transition-duration: 0.25s;
@@ -105,8 +172,9 @@ form input:hover {
 }
 form input:focus {
   background-color: white;
-  width: 300px;
-  color: #53e3a6;
+  width: 420px;
+  text-align: left;
+  color: #3ea1db;
 }
 form button {
   appearance: none;
@@ -114,9 +182,10 @@ form button {
   background-color: white;
   border: 0;
   padding: 10px 15px;
-  color: #53e3a6;
+  color: #5d34ec;
   border-radius: 3px;
-  width: 250px;
+  margin-top: 15px;
+  width: 200px;
   cursor: pointer;
   font-size: 18px;
   transition-duration: 0.25s;
@@ -129,5 +198,19 @@ form button:hover {
 }
 form button:hover {
   background-color: #f5f7f9;
+}
+.form-initials {
+  display: flex;
+  justify-content: center;
+  margin: 0px 0px 0px 0px !important;
+}
+.form-initials input {
+  width: 180px;
+  margin: 0 5px 15px 5px;
+}
+.form-initials input:focus {
+  background-color: white;
+  width: 200px;
+  color: #3ea1db;
 }
 </style>
