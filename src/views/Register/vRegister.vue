@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Register from '../components/RegisterForm';
+import Register from '../../components/RegisterForm';
 // import Navbar from './Navbar.vue';
 //  highlight: item.id == selected
 // for (var i = 1; i <= 2; i++) {

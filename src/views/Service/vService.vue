@@ -8,7 +8,7 @@
 
 <script>
 // import Navbar from '../components/Navbar.vue';
-import Restaurant from '../components/Restaurant.vue';
+import Restaurant from '../../components/Restaurant.vue';
 // import Navbar from './Navbar.vue';
 //  highlight: item.id == selected
 // for (var i = 1; i <= 2; i++) {

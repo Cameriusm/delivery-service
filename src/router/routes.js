@@ -1,31 +1,9 @@
 import VueRouter from 'vue-router';
 
-import Login from '../views/Login.vue';
-import Register from '../views/Register.vue';
-import Service from '../views/Service.vue';
+import rService from './Service/rService';
+import rLogin from './Login/rLogin';
+import rRegister from './Register/rRegister';
 
-let routes = [
-  {
-    path: '/login',
-    component: Login,
-    meta: {
-      requiresVisitor: true,
-    },
-  },
-  {
-    path: '/register',
-    component: Register,
-    meta: {
-      requiresVisitor: true,
-    },
-  },
-  {
-    path: '/',
-    component: Service,
-    meta: {
-      requiresAuth: true,
-    },
-  },
-];
+let routes = [...rService, ...rLogin, ...rRegister];
 
 export default new VueRouter({ mode: 'history', routes });

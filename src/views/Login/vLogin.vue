@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import LoginForm from '../components/LoginForm.vue';
+import LoginForm from '../../components/LoginForm.vue';
 // import Navbar from './components/Navbar.vue';
 // import Navbar from './Navbar.vue';
 //  highlight: item.id == selected
