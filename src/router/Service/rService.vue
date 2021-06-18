@@ -9,6 +9,12 @@ export default [
     meta: {
       requiresAuth: true,
     },
+    // methods: {
+    //   getRestaurants: function() {},
+    // },
+    // beforeMount() {
+    //   this.getRestaurants();
+    // },
   },
 ];
 </script>

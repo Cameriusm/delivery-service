@@ -37,6 +37,11 @@
     },
     "rules": {}
   },
+  "devServer": {
+    "compress": true,
+    "disableHostCheck": true,
+    "public": "https://2353639c9499.ngrok.io/"
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <Restaurant />
+    <AvailableRestaurants />
   </div>
 </template>
 
 <script>
-import Restaurant from '../../components/Restaurant.vue';
+import AvailableRestaurants from '../../components/AvailableRestaurants.vue';
 
 export default {
   name: 'Login',
@@ -17,8 +17,8 @@ export default {
   },
 
   components: {
-    Restaurant,
-    // AvailableRestaurants,
+    // Restaurant,
+    AvailableRestaurants,
   },
 };
 </script>

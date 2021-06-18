@@ -1,10 +1,13 @@
 <template>
   <div class="navbar">
     <div class="navbar-links">
-      <div><router-link to="/">Главная</router-link></div>
-      <div v-if="!loggedIn"><router-link to="/Login">Вход</router-link></div>
+      <div><router-link to="/">Создать</router-link></div>
+      <div v-if="loggedIn">
+        <router-link to="/orders">Заказы</router-link>
+      </div>
+      <div v-if="!loggedIn"><router-link to="/login">Вход</router-link></div>
       <div v-if="!loggedIn">
-        <router-link to="/Register">Регистрация</router-link>
+        <router-link to="/register">Регистрация</router-link>
       </div>
       <div v-if="loggedIn">
         <a v-on:click="logout">Выйти</a>

@@ -1,12 +1,16 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import restaurants from './modules/restaurants/restaurants';
+import auth from './modules/auth/auth';
 
 Vue.use(Vuex);
+// axios.defaults.baseURL = 'http://2ae2baca79f9.ngrok.io/api';
 axios.defaults.baseURL = 'http://laravel/api';
 export const store = new Vuex.Store({
   state: {
     token: localStorage.getItem('access_token') || null,
+    userdId: localStorage.getItem('user_id') || null,
   },
   getters: {
     loggedIn(state) {
@@ -14,11 +18,13 @@ export const store = new Vuex.Store({
     },
   },
   mutations: {
-    retrieveToken(state, token) {
+    retrieveToken(state, token, userId) {
       state.token = token;
+      state.userId = userId;
     },
     destroyToken(state) {
       state.token = null;
+      state.userId = null;
     },
   },
   actions: {
@@ -37,6 +43,9 @@ export const store = new Vuex.Store({
             resolve(response);
           })
           .catch((error) => {
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('user_id');
+            context.commit('destroyToken');
             reject(error);
           });
       });
@@ -71,9 +80,11 @@ export const store = new Vuex.Store({
           })
           .then((response) => {
             const token = response.data.access_token;
+            const userId = response.data.user_id;
 
             localStorage.setItem('access_token', token);
-            context.commit('retrieveToken', token);
+            localStorage.setItem('user_id', userId);
+            context.commit('retrieveToken', token, userId);
             resolve(response);
             // console.log(response);
           })
@@ -84,4 +95,10 @@ export const store = new Vuex.Store({
       });
     },
   },
+  modules: {
+    // restaurants: restaurantsModule,
+    auth,
+    restaurants,
+  },
 });
+export default store;

@@ -4,60 +4,77 @@
     <!-- <h1>Главная страница</h1> -->
     <div class="restaurant-option">
       <h1>Введите ссылку на Ресторан:</h1>
-      <form class="form">
+      <form class="form" @submit.prevent="restaurantHrefConfirm">
         <div class="restaurant-option-checkboxes">
           <input
             type="text"
             placeholder="Ссылка"
             onfocus="this.placeholder = ''"
             onblur="this.placeholder = 'Ссылка'"
+            v-model="href"
           />
         </div>
         <button type="submit" class="restaurant-button-confirm">
           Подтвердить
         </button>
       </form>
+      <!-- <AvailableRestaurants /> -->
     </div>
+    <div cl></div>
   </div>
 </template>
 
 <script>
-// import Navbar from './Navbar.vue';
-//  highlight: item.id == selected
-var items = [
-  { id: 1, msg: 'Delivery club' },
-  { id: 2, msg: 'Yandex food' },
-];
-// for (var i = 1; i <= 2; i++) {
-//   items.push({
-//     id: i,
-//   });
-// }
+import axios from 'axios';
+import middleware from '../store/middleware';
+// import AvailableRestaurants from './AvailableRestaurants.vue';
 
 export default {
-  name: 'Login',
+  name: 'Restaurant',
   props: {
     msg: String,
   },
   components: {
-    // Navbar,
-    // Login,
-    // Register,
+    // AvailableRestaurants,
   },
   data: function() {
     return {
-      items,
-      selected: undefined,
-      isActive: false,
+      href: '',
+      parsed: [],
     };
   },
 
   methods: {
-    myFilter: function(id) {
-      this.selected = id;
+    restaurantHrefConfirm: function() {
+      const params = new URLSearchParams();
+      params.append('href', this.href);
+      axios
+        .post('http://localhost:3001/api/parse', params, {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        })
+        .then((result) => {
+          // setLoadingScreen(true);
+          // const results = [].concat.apply([], result.data);
+          // console.log(result);
 
-      this.isActive = !this.isActive;
-      // some code to filter users
+          this.parsed = result.data;
+          console.log(this.parsed);
+          const sendDetails = middleware(
+            'sendRestaurantData'
+            // result.data.name
+          );
+
+          console.log(sendDetails);
+          // setParser(results);
+        })
+        // console.log(result.data);
+        .catch(() => {
+          console.log("didn't make through");
+          // setLoadingScreen(true);
+          // const results = ['Попытка парсинга была неудачна'];
+          // setParser(results);
+          // console.log(result.data);
+        });
     },
   },
 };
