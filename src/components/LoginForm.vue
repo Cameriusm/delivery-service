@@ -2,6 +2,11 @@
   <div class="login-form">
     <h1>Авторизация</h1>
     <form class="form" @submit.prevent="login">
+      <div v-if="successMessage" class="success-message">
+        {{ successMessage }}
+      </div>
+
+      <div v-if="serverError" class="server-error">{{ serverError }}</div>
       <input
         type="email"
         placeholder="Email"
@@ -18,7 +23,19 @@
         required
         v-model="password"
       />
-      <button type="submit" id="login-button">Войти</button>
+      <button type="submit" id="login-button" :disabled="loading">
+        <div class="lds-ring-container " v-if="loading">
+          <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <div v-if="!loading">
+          Войти
+        </div>
+      </button>
     </form>
   </div>
 </template>
@@ -26,11 +43,14 @@
 <script>
 // import { mapActions } from 'vuex';
 export default {
-  name: 'Login',
+  name: "Login",
   data() {
     return {
-      username: '',
-      password: '',
+      username: "",
+      password: "",
+      serverError: "",
+      successMessage: this.dataSuccessMessage,
+      loading: false,
     };
   },
   // methods: {
@@ -45,28 +65,31 @@ export default {
   //     });
   //   },
   // },
-  // export default {
-  // name: 'Login',
-  // data() {
-  //   return {
-  //     username: '',
-  //     password: '',
-  //   };
-  // },
+
   methods: {
     login() {
+      this.loading = true;
       this.$store
-        .dispatch('retrieveToken', {
+        .dispatch("retrieveToken", {
           username: this.username,
           password: this.password,
         })
         .then(() => {
-          this.$router.push({ path: '/' });
+          this.loading = false;
+          this.$router.push({ path: "/" });
+        })
+        .catch((error) => {
+          this.loading = false;
+          this.serverError = error.response.data;
+          this.password = "";
+          this.successMessage = "";
         });
     },
   },
   props: {
-    msg: String,
+    dataSuccessMessage: {
+      type: String,
+    },
   },
   components: {},
 };
@@ -74,11 +97,40 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.form-error {
+  font-size: 16px;
+  color: #a94442;
+}
+.input-error {
+  border: 1px solid red;
+}
+
+.server-error {
+  margin-bottom: 12px;
+  font-size: 16px;
+  padding: 10px 16px;
+  color: #a94442;
+  width: 250px;
+  margin: 20px auto;
+
+  background: #f3dede;
+  border-radius: 4px;
+}
+.success-message {
+  background-color: #dff0d8;
+  color: #3c763d;
+  margin-bottom: 12px;
+  font-size: 16px;
+  padding: 10px 16px;
+  width: 250px;
+  margin: 25px auto;
+  border-radius: 4px;
+}
 h1 {
   padding-top: 180px;
   color: white;
   font-weight: 200;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
 }
 .login-form {
   background-image: linear-gradient(
@@ -92,27 +144,27 @@ h1 {
 }
 .login-form::-webkit-input-placeholder {
   /* WebKit browsers */
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   color: white;
   font-weight: 300;
 }
 .login-form::-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
 .login-form::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
 .login-form::-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   color: white;
   font-weight: 300;
 }
@@ -162,6 +214,7 @@ form button {
   color: #5d34ec;
   border-radius: 3px;
   width: 200px;
+  height: 40px;
   cursor: pointer;
   font-size: 18px;
   transition-duration: 0.25s;
@@ -174,5 +227,9 @@ form button:hover {
 }
 form button:hover {
   background-color: #f5f7f9;
+}
+form button:disabled {
+  background-color: rgb(228, 228, 228);
+  cursor: initial;
 }
 </style>

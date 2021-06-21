@@ -3,7 +3,7 @@
     <!-- <Navbar msg="Welcome to Your Vue.js App" /> -->
     <!-- <h1>Главная страница</h1> -->
     <div class="restaurant-option">
-      <h1>Введите ссылку на Ресторан:</h1>
+      <h1>Введите ссылку на Ресторан, {{name}} {{id}}:</h1>
       <form class="form" @submit.prevent="restaurantHrefConfirm">
         <div class="restaurant-option-checkboxes">
           <input
@@ -41,8 +41,16 @@ export default {
     return {
       href: '',
       parsed: [],
+      name: '',
+      id: null,
     };
   },
+  created(){
+    this.$store.dispatch('retrieveName')
+    .then(response=> {
+      this.name= response.data.first_name
+      this.id= response.data.id})
+    },
 
   methods: {
     restaurantHrefConfirm: function() {
@@ -60,7 +68,11 @@ export default {
           this.parsed = result.data;
           console.log(this.parsed);
           const sendDetails = middleware(
-            'sendRestaurantData'
+            'sendRestaurantData',
+            {
+              href: this.href,
+              // user:
+            }
             // result.data.name
           );
 

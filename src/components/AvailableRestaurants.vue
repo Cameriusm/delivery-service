@@ -4,34 +4,18 @@
       <div class="form">
         <h1>Доступные заказы:</h1>
         <div>
-          <!-- {{ restaurantList }} -->
           <div
             class="form-href"
             v-on:click="selectRestaurant"
-            v-for="restaurant in restaurantList.collection"
-            :key="restaurant.name"
+            v-for="order in ordersList"
+            :key="order.name"
           >
-            <p>Ресторан: "{{ restaurant.restaurant.name }}"</p>
-            <p>Создатель: {{ restaurant.owner.name }}</p>
-            <p>Телефон: {{ restaurant.owner.phone }}</p>
+            <p><span>Ресторан:</span><br/>{{ order.restaurant.name }}</p>
+            <p><span>Создатель:</span><br/>{{ order.restaurant.owner.name }}</p>
+            <p><span>Телефон:</span><br/>{{ order.restaurant.owner.phone }}</p>
           </div>
         </div>
-        <div class="form-href">
-          <p>Restaurant Name</p>
-          <p>Создал: Creator</p>
-        </div>
-        <div class="form-href">
-          <p>Restaurant Name</p>
-          <p>Создал: Creator</p>
-        </div>
-        <div class="form-href">
-          <p>Restaurant Name</p>
-          <p>Создал: Creator</p>
-        </div>
-        <div class="form-href">
-          <p>Restaurant Name</p>
-          <p>Создал: Creator</p>
-        </div>
+       
       </div>
       <div class="test-menu">
         <RestaurantOrders />
@@ -57,10 +41,10 @@ export default {
     // restaurantList: {},
   },
   computed: mapState({
-    restaurantList: (state) => state.restaurants.restaurantList,
+    ordersList: (state) => state.restaurants.ordersList,
   }),
   watch: {
-    restaurantList: (newVal) => {
+    ordersList: (newVal) => {
       console.log(newVal);
       // this.answer = 'Waiting for you to stop typing...'
       // this.debouncedGetAnswer()
@@ -138,8 +122,12 @@ h1 {
 }
 .form-href p {
   text-align: center;
-  margin: 0 5px;
+  margin: 0 25px;
+  width: 100%;
 }
+.form-href p span{
+font-size: 14px;
+  }
 .form-href:hover {
   transition: background-image 1s ease-in-out;
   transition-duration: 0.55s;

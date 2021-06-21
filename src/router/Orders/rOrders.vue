@@ -14,7 +14,7 @@ export default [
       {
         // UserProfile will be rendered inside User's <router-view>
         // when /user/:id/profile is matched
-        path: '/add',
+        path: '/add/:id',
         component: AddOrder,
       },
       // {

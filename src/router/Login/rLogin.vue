@@ -1,11 +1,12 @@
 <script>
-import vLogin from '../../views/Login/vLogin';
+import vLogin from "../../views/Login/vLogin";
 
 export default [
   {
-    path: '/login',
-    name: 'Login',
+    path: "/login",
+    name: "Login",
     component: vLogin,
+    props: true,
     meta: {
       requiresVisitor: true,
     },

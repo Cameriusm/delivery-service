@@ -6,12 +6,12 @@ import { middleware } from '../../middleware';
 export default {
   namespaced: true,
   state: {
-    restaurantList: {},
+    ordersList: {},
   },
   // getters: {},
   mutations: {
     setRestaurants(state, data) {
-      state.restaurantList = data;
+      state.ordersList = data;
     },
   },
   // modules: {},
@@ -21,7 +21,7 @@ export default {
       console.log(data);
       // const { data } = { data: 'bla' };
       // console.log(data);
-      context.commit('setRestaurants', data);
+      context.commit('setRestaurants', data.collection);
     },
   },
 };

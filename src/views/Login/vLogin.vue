@@ -1,12 +1,12 @@
 <template>
-  <LoginForm />
+  <LoginForm post-message="this.dataSuccessMessage" />
   <!-- <Navbar msg="Welcome to Your Vue.js App" /> -->
 
   <!-- <h1>Главная страница</h1> -->
 </template>
 
 <script>
-import LoginForm from '../../components/LoginForm.vue';
+import LoginForm from "../../components/LoginForm.vue";
 // import Navbar from './components/Navbar.vue';
 // import Navbar from './Navbar.vue';
 //  highlight: item.id == selected
@@ -17,9 +17,11 @@ import LoginForm from '../../components/LoginForm.vue';
 // }
 
 export default {
-  name: 'Login',
+  name: "Login",
   props: {
-    msg: String,
+    dataSuccessMessage: {
+      type: String,
+    },
   },
   components: {
     LoginForm,
