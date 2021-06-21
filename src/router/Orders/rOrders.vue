@@ -1,35 +1,35 @@
 <script>
 import vOrders from '../../views/Orders/vOrders.vue';
 import AddOrder from '../../components/AddOrder.vue';
+import AvailableRestaurants from '../../components/AvailableRestaurants';
 
 export default [
   {
     path: '/orders',
-    name: 'Orders',
+    // name: 'Orders',
     component: vOrders,
     meta: {
       requiresAuth: true,
     },
+
     children: [
       {
-        // UserProfile will be rendered inside User's <router-view>
-        // when /user/:id/profile is matched
-        path: '/add/:id',
+        path: '',
+        component: AvailableRestaurants,
+      },
+      {
+        path: 'add/:id',
         component: AddOrder,
       },
-      // {
-      // UserPosts will be rendered inside User's <router-view>
-      // when /user/:id/posts is matched
-      //   path: 'posts',
-      //   component: UserPosts
-      // }
     ],
-    // methods: {
-    //   getRestaurants: function() {},
-    // },
-    // beforeMount() {
-    //   this.getRestaurants();
-    // },
   },
+  // {
+  //   path: '/orders/',
+  //   component: AvailableRestaurants,
+  // },
+  // {
+  //   path: '/orders/add:id',
+  //   component: AddOrder,
+  // },
 ];
 </script>

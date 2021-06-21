@@ -6,6 +6,7 @@ export default [
     path: '/',
     name: 'Service',
     component: vService,
+    props: true,
     meta: {
       requiresAuth: true,
     },

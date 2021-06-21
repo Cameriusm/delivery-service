@@ -6,19 +6,19 @@
         <div>
           <div
             class="form-href"
-            v-on:click="selectRestaurant"
+            v-on:click="selectRestaurant(order.restaurant.id)"
             v-for="order in ordersList"
             :key="order.name"
           >
-            <p><span>Ресторан:</span><br/>{{ order.restaurant.name }}</p>
-            <p><span>Создатель:</span><br/>{{ order.restaurant.owner.name }}</p>
-            <p><span>Телефон:</span><br/>{{ order.restaurant.owner.phone }}</p>
+            <p><span>Ресторан:</span><br />{{ order.restaurant.name }}</p>
+            <p>
+              <span>Создатель:</span><br />{{ order.restaurant.owner.name }}
+            </p>
+            <p><span>Телефон:</span><br />{{ order.restaurant.owner.phone }}</p>
           </div>
         </div>
-       
       </div>
       <div class="test-menu">
-        <RestaurantOrders />
         <Bill />
       </div>
       <!-- <button>Popup</button> -->
@@ -27,13 +27,11 @@
 </template>
 
 <script>
-import RestaurantOrders from './RestaurantOrders.vue';
 import Bill from './Bill.vue';
 import { mapActions, mapState } from 'vuex';
 export default {
   name: 'AvailableRestaurants',
   components: {
-    RestaurantOrders,
     Bill,
   },
 
@@ -52,8 +50,13 @@ export default {
   },
   methods: {
     ...mapActions('restaurants', ['getRestaurants']),
-    selectRestaurant() {
-      this.$router.push({ path: '/orders/add' });
+    // selectRestaurant(id) {
+    selectRestaurant(id) {
+      // this.$router.push({ path: '/add', params: { id: 1 } });
+      // this.$router.push({ name: `addorder`, params: { id: 1 } });
+      // this.$router.push({ name: `/add`, params: { id: 1 } });
+      this.$router.push({ path: `/orders/add/${id}`, params: { id: id } });
+      // this.$router.push({ path: `/orders/add`, params: { id: 1 } });
     },
   },
   mounted() {
@@ -125,9 +128,9 @@ h1 {
   margin: 0 25px;
   width: 100%;
 }
-.form-href p span{
-font-size: 14px;
-  }
+.form-href p span {
+  font-size: 14px;
+}
 .form-href:hover {
   transition: background-image 1s ease-in-out;
   transition-duration: 0.55s;

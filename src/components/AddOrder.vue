@@ -3,7 +3,8 @@
     <div class="available-restaurants">
       <div class="form">
         <div class="restaurant-title">
-          <h1>"Restaurant"</h1>
+          <!-- <h1>"Restaurant"</h1> -->
+          <h1>{{ menuTitle }}</h1>
         </div>
         <div class="form-menu">
           <div class="form-side-orders" id="style-4">
@@ -17,8 +18,34 @@
               <div><div>"Order"</div></div>
             </div>
           </div>
-          <div class="form-menu-orders" id="style-4">
-            <div>
+
+          <div v-if="menuList" class="form-menu-orders" id="style-4">
+            <div v-for="item in menuList" :key="item.name">
+              <div class="form-menu-orders-inside">
+                <div class="form-menu-title">
+                  <p>{{ item.title }}</p>
+                </div>
+                <div class="form-menu-elems">
+                  <div class="form-menu-img">
+                    <img v-bind:src="item.img" alt="" />
+                  </div>
+                  <div class="form-menu-desc">{{ item.desc }}</div>
+                  <div class="form-menu-price">{{ item.price }}</div>
+                  <!-- <div>{{ item.desc }}</div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div
+              v-on:click="selectRestaurant(order.restaurant.id)"
+              v-for="order in ordersList"
+              :key="order.name"
+            >
+              <div class="form-menu-title">
+                <p>{{ order.restaurant.menu }}</p>
+              </div>
+            </div> -->
+          <!-- <div>
               <div class="form-menu-title">
                 <p>"Menu Item"</p>
               </div>
@@ -30,62 +57,8 @@
               </div>
             </div>
 
-            <div>
-              <div class="form-menu-title">
-                <p>"Menu Item"</p>
-              </div>
-              <div class="form-menu-elems">
-                <p>"Image"</p>
-                <p>"Description"</p>
-                <p>"Price"</p>
-                <p>"Quantity"</p>
-              </div>
-            </div>
-            <div>
-              <div class="form-menu-title">
-                <p>"Menu Item"</p>
-              </div>
-              <div class="form-menu-elems">
-                <p>"Image"</p>
-                <p>"Description"</p>
-                <p>"Price"</p>
-                <p>"Quantity"</p>
-              </div>
-            </div>
-            <div>
-              <div class="form-menu-title">
-                <p>"Menu Item"</p>
-              </div>
-              <div class="form-menu-elems">
-                <p>"Image"</p>
-                <p>"Description"</p>
-                <p>"Price"</p>
-                <p>"Quantity"</p>
-              </div>
-            </div>
-            <div>
-              <div class="form-menu-title">
-                <p>"Menu Item"</p>
-              </div>
-              <div class="form-menu-elems">
-                <p>"Image"</p>
-                <p>"Description"</p>
-                <p>"Price"</p>
-                <p>"Quantity"</p>
-              </div>
-            </div>
-            <div>
-              <div class="form-menu-title">
-                <p>"Menu Item"</p>
-              </div>
-              <div class="form-menu-elems">
-                <p>"Image"</p>
-                <p>"Description"</p>
-                <p>"Price"</p>
-                <p>"Quantity"</p>
-              </div>
-            </div>
-          </div>
+            -->
+
           <!-- <div class="form-current-orders"></div> -->
         </div>
         <div class="form-href-creator">
@@ -106,58 +79,90 @@
 </template>
 
 <script>
+// import { mapActions, mapState } from 'vuex';
+import { mapState } from 'vuex';
 export default {
-  name: 'RestaurantMenu',
+  name: 'AddOrder',
+  props: {
+    id: {
+      type: Number,
+    },
+  },
+  computed: mapState({
+    menuList: function(state) {
+      return state.restaurants.ordersList[this.$route.params.id - 1].restaurant
+        .menu;
+    },
+    menuTitle: function(state) {
+      return state.restaurants.ordersList[this.$route.params.id - 1].restaurant
+        .name;
+    },
+    // ordersList: (state) => state.restaurants.ordersList,
+  }),
+  beforeMount() {
+    console.log(this.$route);
+    console.log(this.$route.params.id);
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#style-4::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #f5f5f5;
+.form-menu-orders-inside {
+  margin: 10px;
 }
 
-#style-4::-webkit-scrollbar {
-  width: 10px;
-  background-color: #f5f5f5;
+.form-menu-desc {
+  width: 325px;
+  /* display: flex;
+  align-items: center; */
+  /* line-height: 22px; */
+  padding-top: 3%;
+  /* height: auto; */
+
+  display: flex;
+  /* align-items: center; */
+  height: 50px;
+  font-size: 14px;
+
+  margin: 0 25px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  /* margin-bottom: 10px; */
 }
 
-#style-4::-webkit-scrollbar-thumb {
-  background-color: #393f77;
-  border: 2px solid #384279;
-}
-
-#style-7::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #f5f5f5;
-  border-radius: 10px;
-}
-#style-7::-webkit-scrollbar {
-  width: 10px;
-  background-color: #f5f5f5;
-}
-
-#style-7::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-image: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    color-stop(0.44, rgb(122, 153, 217)),
-    color-stop(0.72, rgb(73, 125, 189)),
-    color-stop(0.86, rgb(28, 58, 148))
-  );
-}
-.form-menu-elems {
+.form-menu-price {
+  width: 75px;
+  /* margin: 0 auto; */
+  text-align: center;
+  font-weight: 600;
   display: flex;
   justify-content: center;
-  /* margin: 0 auto; */
+  align-items: center;
+  margin-bottom: 25px;
 }
-.form-menu-elems p {
-  margin: 0 25px;
+.form-menu-title {
+  text-align: left;
+  /* width: 80%; */
+  margin-left: 10%;
+  /* text-align: center; */
+  font-weight: 700;
+  font-size: 18px;
+}
+.form-menu-img img {
+  width: 75px;
+  height: 75px;
+  border-radius: 5px;
+}
+.form-menu-elems {
+  width: 85%;
+  /* margin-left: 10%; */
+  margin: 10px 0;
+  margin-left: 10%;
+  /* margin-right: 5%; */
+  display: flex;
+  /* justify-content: center; */
+  /* margin: 0 auto; */
 }
 
 .form-side-inner > div > div {
@@ -167,7 +172,7 @@ export default {
   margin-left: 15%;
 }
 .form-menu-orders > div > div {
-  line-height: 50px;
+  /* line-height: 50px; */
   text-align: center;
 }
 .form-menu-orders > div {
@@ -220,27 +225,12 @@ export default {
   margin: 0 15px;
   border-radius: 5px;
   background-color: rgb(66, 93, 180);
-  /* background-color: rgb(91, 66, 180); */
   box-shadow: 0 20px 30px rgb(0 0 0 / 7%), 0 2px 4px rgb(0 0 0 / 7%),
     0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
     0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);
-  /* background-image: linear-gradient(
-    109.6deg,
-    rgb(91, 66, 180) 11.2%,
-    rgb(90, 50, 236) 100.2%
-  ); */
-
   width: 100%;
   height: 400px;
 }
-/*
-.form-current-orders {
-  border-radius: 5px;
-  margin: 0 25px;
-  background-color: rgb(91, 66, 180);
-  width: 150px;
-  height: 500px;
-}*/
 .restaurant-title {
   border-radius: 5px;
   padding-top: 5px;
@@ -282,7 +272,8 @@ export default {
     rgba(62, 161, 219, 1) 11.2%,
     rgb(90, 50, 236) 100.2%
   );
-  height: 100vh;
+  min-height: 100vh;
+  padding-bottom: 75px;
 }
 .form {
   /* background-color: rgb(39, 75, 160); */
@@ -324,49 +315,54 @@ export default {
 .form-href-creator button:hover {
   background-color: #f5f7f9;
 }
-/* .form-href button:hover {
-  background-color: #f5f7f9;
-} */
 .form-href-creator button {
   margin-left: 15px;
 }
 .form-href-creator {
   cursor: pointer;
-  /* margin: 20px auto 20px auto; */
   padding: 10px;
   border-radius: 15px;
-  /* width: 80%; */
-  /* background-image: linear-gradient(
-    109.6deg,
-    rgb(73, 143, 184) 11.2%,
-    rgb(91, 61, 199) 100.2%
-  ); */
-  /* background-color: rgb(54, 125, 184); */
   margin-top: 10px;
   transition: background-image 1s ease-in-out;
   text-align: left;
 }
-/* .form-href {
+
+#style-4::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
 }
-.form-href p {
-  margin: 0 5px;
-} */
-/* .form-href:hover {
-  transition: background-image 1s ease-in-out;
-  transition-duration: 0.55s;
-  background-image: linear-gradient(
-    109.6deg,
-    rgb(91, 61, 199) 11.2%,
-    rgb(73, 143, 184) 100.2%
+
+#style-4::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f5f5f5;
+}
+
+#style-4::-webkit-scrollbar-thumb {
+  background-color: #393f77;
+  border: 2px solid #384279;
+}
+
+#style-7::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+#style-7::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f5f5f5;
+}
+
+#style-7::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.44, rgb(122, 153, 217)),
+    color-stop(0.72, rgb(73, 125, 189)),
+    color-stop(0.86, rgb(28, 58, 148))
   );
-  background-image: linear-gradient(
-    109.6deg,
-    rgb(78, 153, 197) 11.2%,
-    rgb(110, 79, 221) 100.2%
-  );
-  background: rgba(122, 212, 240, 0.1);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
-    0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
-    0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
-} */
+}
 </style>
