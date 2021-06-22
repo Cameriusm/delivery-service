@@ -8,14 +8,28 @@
         </div>
         <div class="form-menu">
           <div class="form-side-orders" id="style-4">
-            <div class="form-side-inner">
-              <div class="first-order"><div>"Order"</div></div>
-              <div><div>"Order"</div></div>
-              <div><div>"Order"</div></div>
-              <div><div>"Order"</div></div>
-              <div><div>"Order"</div></div>
-              <div><div>"Order"</div></div>
-              <div><div>"Order"</div></div>
+            <div v-if="orders" class="form-side-inner">
+              <div v-for="(order, index) in orders" :key="order.title">
+                <div class="order-title">{{ order.title }}</div>
+                <div>{{ order.price }}</div>
+                <div>Кол-во: {{ order.quantity }}</div>
+                <!-- <div>{{ order.quantity }}</div> -->
+                <button
+                  v-on:click="deleteOrder(index)"
+                  class="delete-order-button"
+                >
+                  x
+                </button>
+              </div>
+            </div>
+            <div v-if="!orders.length" class="form-side-inner">
+              <div>
+                <div>
+                  <div class="empty-order-list">
+                    Здесь появятся ваши заказы!
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -32,7 +46,7 @@
                   <div class="form-menu-desc">{{ item.desc }}</div>
                   <div class="form-menu-price">
                     <div class="price-tag">{{ item.price }}</div>
-                    <button>
+                    <button v-on:click="addNewOrder(item)">
                       Добавить
                     </button>
                   </div>
@@ -45,17 +59,14 @@
         </div>
         <div class="form-href-creator">
           <div class="form-href-buttons">
-            <button>Добавить заказ</button>
-            <div class="purchase-price">Стоимость:</div>
+            <button :disabled="!orders.length">Добавить заказ</button>
+            <div v-if="price" class="purchase-price">
+              Стоимость:
+              <!-- <span v-if="price">{{ price }} ₽</span> -->
+              <span>{{ price }} ₽</span>
+            </div>
           </div>
         </div>
-
-        <!-- <div class="form-href">
-          <p>"название"</p>
-          <p>"описание"</p>
-          <p>"цена"</p>
-          <p>"img url"</p>
-        </div> -->
       </div>
     </div>
   </div>
@@ -63,9 +74,9 @@
 
 <script>
 // import { mapActions, mapState } from 'vuex';
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 export default {
-  name: "AddOrder",
+  name: 'AddOrder',
   props: {
     id: {
       type: Number,
@@ -74,7 +85,28 @@ export default {
   data() {
     return {
       orders: [],
+      price: 0,
     };
+  },
+  watch: {
+    orders: {
+      deep: true,
+      handler(newVal) {
+        // this.price = newVal.reduce((e, acc) => {
+        //   return e.price + acc;
+        // }, acc);
+        // this.price = newVal.reduce((acc,e,i)=> +e.price.replace(/\D/g, "") + acc,0)
+        this.price = newVal.reduce(
+          (acc, e) => +e.price.replace(/\D/g, '') * e.quantity + acc,
+          0
+        );
+        // console.log(newVal);
+        // console.log(this.price);
+
+        // this.answer = 'Waiting for you to stop typing...'
+        // this.debouncedGetAnswer()
+      },
+    },
   },
   computed: mapState({
     menuList: function(state) {
@@ -88,8 +120,35 @@ export default {
     // ordersList: (state) => state.restaurants.ordersList,
   }),
   beforeMount() {
-    console.log(this.$route);
-    console.log(this.$route.params.id);
+    // console.log(this.$route);
+    // console.log(this.$route.params.id);
+  },
+  methods: {
+    addNewOrder(item) {
+      let isOrderExist = false;
+      if (
+        this.orders.filter((el) => {
+          if (el.title === item.title) {
+            isOrderExist = true;
+            el.quantity++;
+            // console.log(el.title + ' it is');
+          } else {
+            // console.log(el.title + ' is not');
+          }
+        })
+      )
+        if (!isOrderExist) {
+          this.orders.push({ ...item, quantity: 1 });
+        }
+
+      // console.log(isOrderExist);
+      // console.log(this.orders);
+      // this.orders.filter()
+      // this.orders.push({ ...item, quantity: 1 });
+    },
+    deleteOrder(index) {
+      this.orders.splice(index, 1);
+    },
   },
 };
 </script>
@@ -100,18 +159,20 @@ export default {
   margin-left: 25px;
   font-weight: 700;
   font-size: 20px;
+  cursor: default;
   margin-top: 18px;
-  /* height: 40px; */
-  /* padding-top: 20; */
-  /* height: auto; */
-  /* line-height: 55px; */
 }
 .form-href-buttons {
   display: flex;
   /* align-items: center; */
 }
 .form-menu-orders-inside {
-  margin: 10px;
+  padding: 10px;
+}
+.empty-order-list {
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
 }
 
 .form-menu-desc {
@@ -136,6 +197,11 @@ export default {
 .price-tag {
   /* margin-bottom: 15px; */
   padding-bottom: 10px;
+}
+.form-menu-price button:hover {
+  box-shadow: 0 20px 30px rgb(0 0 0 / 7%), 0 2px 4px rgb(0 0 0 / 7%),
+    0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
+    0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);
 }
 .form-menu-price button {
   /* margin-top: 15px; */
@@ -167,9 +233,7 @@ export default {
 }
 .form-menu-title {
   text-align: center;
-  /* width: 80%; */
-  /* margin-left: 10%; */
-  /* text-align: center; */
+
   font-weight: 700;
   font-size: 18px;
 }
@@ -179,25 +243,43 @@ export default {
   border-radius: 5px;
 }
 .form-menu-elems {
-  /* width: 85%; */
-  /* margin-left: 10%; */
-  margin: 10px 0;
-  /* margin-left: 10%; */
-  /* margin-right: 5%; */
-  display: flex;
-  /* justify-content: center; */
-  /* margin: 0 auto; */
-}
+  margin: 10px 0px;
 
+  display: flex;
+}
+.order-title {
+  width: 60px;
+}
 .form-side-inner > div > div {
-  cursor: pointer;
-  line-height: 50px;
+  font-size: 14px;
+  /* margin-top: 10px; */
+  /* height: auto; */
   text-align: left;
-  margin-left: 15%;
+  margin-left: 5%;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  cursor: default;
 }
 .form-menu-orders > div > div {
   /* line-height: 50px; */
   text-align: center;
+}
+.form-side-inner > div {
+  /* margin-top: 5px; */
+  position: relative;
+  box-shadow: 0 20px 30px rgb(0 0 0 / 7%), 0 2px 4px rgb(0 0 0 / 7%),
+    0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
+    0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);
+  width: 80%;
+  margin: 15px auto;
+
+  height: auto;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  background-color: rgb(108, 106, 219);
+  /* background-color: rgb(77, 107, 206); */
 }
 .form-menu-orders > div {
   margin: 15px auto;
@@ -205,7 +287,7 @@ export default {
   justify-content: center;
   flex-direction: column;
   /* margin: 0 auto; */
-  width: 90%;
+  width: 95%;
   /* margin-left: 15px; */
   height: auto;
   border-radius: 5px;
@@ -220,18 +302,6 @@ export default {
   box-shadow: 0 20px 30px rgb(0 0 0 / 7%), 0 2px 4px rgb(0 0 0 / 7%),
     0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
     0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);
-}
-.form-side-inner > div {
-  box-shadow: 0 20px 30px rgb(0 0 0 / 7%), 0 2px 4px rgb(0 0 0 / 7%),
-    0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
-    0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);
-  width: 80%;
-  margin: 10px auto;
-  height: 50px;
-  border-radius: 5px;
-
-  background-color: rgb(108, 106, 219);
-  /* background-color: rgb(77, 107, 206); */
 }
 .form-menu {
   display: flex;
@@ -270,6 +340,7 @@ export default {
     0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
     0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);
   width: 100%;
+
   height: 400px;
 }
 .restaurant-title {
@@ -354,6 +425,13 @@ export default {
   font-size: 15px;
   transition-duration: 0.25s;
 }
+.form-href-creator button:disabled:hover {
+  background-color: rgb(192, 192, 192);
+}
+.form-href-creator button:disabled {
+  background-color: rgb(192, 192, 192);
+  cursor: initial;
+}
 .form-href-creator button:hover {
   background-color: #f5f7f9;
 }
@@ -361,14 +439,25 @@ export default {
   margin-left: 15px;
 }
 .form-href-creator {
-  cursor: pointer;
   padding: 10px;
   border-radius: 15px;
   margin-top: 10px;
   transition: background-image 1s ease-in-out;
   text-align: left;
 }
-
+.delete-order-button {
+  width: 20px;
+  height: 20px;
+  /* background-color: rgb(106, 136, 219); */
+  color: #5d34ec;
+  background-color: white;
+  border: 1px solid rgb(50, 120, 153);
+  cursor: pointer;
+  border-radius: 5px;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+}
 #style-4::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
