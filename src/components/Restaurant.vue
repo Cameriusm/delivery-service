@@ -2,35 +2,49 @@
   <div class="restaurant">
     <!-- <Navbar msg="Welcome to Your Vue.js App" /> -->
     <!-- <h1>Главная страница</h1> -->
-    <div class="restaurant-option">
-      <h1>Введите ссылку на Ресторан, {{name}} {{id}}:</h1>
-      <form class="form" @submit.prevent="restaurantHrefConfirm">
-        <div class="restaurant-option-checkboxes">
-          <input
-            type="text"
-            placeholder="Ссылка"
-            onfocus="this.placeholder = ''"
-            onblur="this.placeholder = 'Ссылка'"
-            v-model="href"
-          />
-        </div>
-        <button type="submit" class="restaurant-button-confirm">
-          Подтвердить
-        </button>
-      </form>
-      <!-- <AvailableRestaurants /> -->
+    <div class="restaurant-option-main">
+      <div class="restaurant-option">
+        <!-- <h1>Введите ссылку на Ресторан, {{ this.$store.state.userId }}:</h1> -->
+        <h1>Введите ссылку на Ресторан:</h1>
+        <form class="form" @submit.prevent="restaurantHrefConfirm">
+          <div class="restaurant-option-checkboxes">
+            <input
+              type="text"
+              placeholder="Ссылка"
+              onfocus="this.placeholder = ''"
+              onblur="this.placeholder = 'Ссылка'"
+              v-model="href"
+            />
+          </div>
+
+          <button type="submit" class="restaurant-button-confirm">
+            <div class="lds-ring-container " v-if="loading">
+              <div class="lds-ring">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+            <div>
+              Подтвердить
+            </div>
+          </button>
+        </form>
+        <!-- <AvailableRestaurants /> -->
+      </div>
     </div>
     <div cl></div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import middleware from '../store/middleware';
+import axios from "axios";
+import middleware from "../store/middleware";
 // import AvailableRestaurants from './AvailableRestaurants.vue';
 
 export default {
-  name: 'Restaurant',
+  name: "Restaurant",
   props: {
     msg: String,
   },
@@ -39,26 +53,31 @@ export default {
   },
   data: function() {
     return {
-      href: '',
+      href: "",
       parsed: [],
-      name: '',
+      name: "",
       id: null,
+      loading: false,
     };
   },
-  created(){
-    this.$store.dispatch('retrieveName')
-    .then(response=> {
-      this.name= response.data.first_name
-      this.id= response.data.id})
-    },
+  mounted() {
+    console.log(this.$store.state.userId);
+  },
+  // created() {
+  //   this.$store.dispatch("retrieveUser").then((response) => {
+  //     // console.log(response);
+  //     this.name = response.data.first_name;
+  //     this.id = response.data.id;
+  //   });
+  // },
 
   methods: {
     restaurantHrefConfirm: function() {
       const params = new URLSearchParams();
-      params.append('href', this.href);
+      params.append("href", this.href);
       axios
-        .post('http://localhost:3001/api/parse', params, {
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        .post("http://localhost:3001/api/parse", params, {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
         })
         .then((result) => {
           // setLoadingScreen(true);
@@ -68,7 +87,7 @@ export default {
           this.parsed = result.data;
           console.log(this.parsed);
           const sendDetails = middleware(
-            'sendRestaurantData',
+            "sendRestaurantData",
             {
               href: this.href,
               // user:
@@ -94,36 +113,35 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1 {
+.restaurant-option-main {
   padding-top: 140px;
+  /* background-color: purple; */
+}
+.restaurant-option {
+  background-color: red;
+  width: 40%;
+  padding: 20px;
+
+  background-image: linear-gradient(
+    109.6deg,
+    rgb(62, 136, 179) 11.2%,
+    rgb(87, 55, 204) 100.2%
+  );
+  box-shadow: 0 20px 30px rgb(0 0 0 / 7%), 0 2px 4px rgb(0 0 0 / 7%),
+    0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
+    0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);
+  border-radius: 15px;
+  margin: 0 auto;
+  /* padding: 15px; */
+}
+h1 {
+  padding-top: 25px;
   color: white;
   font-weight: 200;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   margin-bottom: 20px;
 }
-/* .restaurant-option-checkboxes > div:hover {
-  font-size: 18px;
-  text-shadow: 1px;
-  transform: scale(1.05);
-  transition-duration: 0.25s;
-  border: 1px solid hsla(133, 60%, 50%, 0.993);
-  background-color: rgba(130, 216, 119, 0.342);
-  font-weight: bold;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
-    0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
-    0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
-} */
-.restaurant-option-checkboxes > .active {
-  text-shadow: 1px;
-  transform: scale(1.05);
-  transition-duration: 0.25s;
-  border: 1px solid hsla(133, 60%, 50%, 0.993);
-  background-color: rgba(130, 216, 119, 0.342);
-  font-weight: bold;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
-    0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
-    0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
-}
+
 .restaurant-button-confirm {
   /* margin-top: 25px; */
   appearance: none;
@@ -145,43 +163,7 @@ h1 {
   padding-top: 15px;
   padding-bottom: 20px;
 }
-.restaurant-option-checkboxes > div:hover {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
-    0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
-    0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
-}
-.restaurant-option-checkboxes > div {
-  cursor: pointer;
-  margin-top: 15px;
-  font-weight: 700;
-  background-color: rgb(174, 215, 218);
-  height: 25px;
-  display: flex;
-  border: 1px solid black;
-  justify-content: center;
-  align-items: center;
 
-  appearance: none;
-  outline: 0;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  background-color: rgba(255, 255, 255, 0.2);
-  width: 220px;
-  border-radius: 3px;
-  padding: 10px 15px;
-  margin: 0 auto 10px auto;
-  display: block;
-  text-align: center;
-  font-size: 18px;
-  color: white;
-  transition-duration: 0.25s;
-  font-weight: 300;
-}
-.restaurant-option-checkboxes {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-}
 .restaurant {
   background-image: linear-gradient(
     109.6deg,
@@ -194,35 +176,29 @@ h1 {
 }
 .restaurant::-webkit-input-placeholder {
   /* WebKit browsers */
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   color: white;
   font-weight: 300;
 }
 .restaurant::-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
 .restaurant::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
 .restaurant::-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   color: white;
   font-weight: 300;
-}
-
-.restaurant-button-confirm:hover {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
-    0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
-    0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
 }
 
 form {

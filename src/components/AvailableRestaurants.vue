@@ -27,10 +27,10 @@
 </template>
 
 <script>
-import Bill from './Bill.vue';
-import { mapActions, mapState } from 'vuex';
+import Bill from "./Bill.vue";
+import { mapActions, mapState } from "vuex";
 export default {
-  name: 'AvailableRestaurants',
+  name: "AvailableRestaurants",
   components: {
     Bill,
   },
@@ -49,7 +49,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('restaurants', ['getRestaurants']),
+    ...mapActions("restaurants", ["getRestaurants"]),
     // selectRestaurant(id) {
     selectRestaurant(id) {
       // this.$router.push({ path: '/add', params: { id: 1 } });
@@ -99,7 +99,7 @@ h1 {
   margin: 0 auto 0 auto;
 }
 .available-restaurants {
-  padding-top: 125px;
+  padding-top: 140px;
   margin: 0 auto 0 auto;
 }
 .form-href {
