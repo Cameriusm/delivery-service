@@ -30,7 +30,12 @@
                     <img v-bind:src="item.img" alt="" />
                   </div>
                   <div class="form-menu-desc">{{ item.desc }}</div>
-                  <div class="form-menu-price">{{ item.price }}</div>
+                  <div class="form-menu-price">
+                    <div class="price-tag">{{ item.price }}</div>
+                    <button>
+                      Добавить
+                    </button>
+                  </div>
                   <!-- <div>{{ item.desc }}</div> -->
                 </div>
               </div>
@@ -41,6 +46,7 @@
         <div class="form-href-creator">
           <div class="form-href-buttons">
             <button>Добавить заказ</button>
+            <div class="purchase-price">Стоимость:</div>
           </div>
         </div>
 
@@ -90,6 +96,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.purchase-price {
+  margin-left: 25px;
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 18px;
+  /* height: 40px; */
+  /* padding-top: 20; */
+  /* height: auto; */
+  /* line-height: 55px; */
+}
+.form-href-buttons {
+  display: flex;
+  /* align-items: center; */
+}
 .form-menu-orders-inside {
   margin: 10px;
 }
@@ -113,20 +133,42 @@ export default {
   /* margin-bottom: 10px; */
 }
 
+.price-tag {
+  /* margin-bottom: 15px; */
+  padding-bottom: 10px;
+}
+.form-menu-price button {
+  /* margin-top: 15px; */
+  outline: 0;
+  background-color: white;
+  border: 0;
+  padding: 10px 15px;
+  color: #5d34ec;
+  border-radius: 3px;
+  /* width: 200px;
+  height: 40px; */
+  /* height: 40px; */
+  cursor: pointer;
+  font-size: 14px;
+  transition-duration: 0.25s;
+}
 .form-menu-price {
+  align-self: flex-end;
   width: 75px;
   /* margin: 0 auto; */
   text-align: center;
   font-weight: 600;
   display: flex;
+  height: 35px;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-bottom: 25px;
 }
 .form-menu-title {
-  text-align: left;
+  text-align: center;
   /* width: 80%; */
-  margin-left: 10%;
+  /* margin-left: 10%; */
   /* text-align: center; */
   font-weight: 700;
   font-size: 18px;
@@ -137,10 +179,10 @@ export default {
   border-radius: 5px;
 }
 .form-menu-elems {
-  width: 85%;
+  /* width: 85%; */
   /* margin-left: 10%; */
   margin: 10px 0;
-  margin-left: 10%;
+  /* margin-left: 10%; */
   /* margin-right: 5%; */
   display: flex;
   /* justify-content: center; */
@@ -307,6 +349,7 @@ export default {
   color: #5d34ec;
   border-radius: 3px;
   width: 190px;
+  height: 40px;
   cursor: pointer;
   font-size: 15px;
   transition-duration: 0.25s;
