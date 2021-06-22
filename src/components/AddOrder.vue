@@ -36,29 +36,6 @@
               </div>
             </div>
           </div>
-          <!-- <div
-              v-on:click="selectRestaurant(order.restaurant.id)"
-              v-for="order in ordersList"
-              :key="order.name"
-            >
-              <div class="form-menu-title">
-                <p>{{ order.restaurant.menu }}</p>
-              </div>
-            </div> -->
-          <!-- <div>
-              <div class="form-menu-title">
-                <p>"Menu Item"</p>
-              </div>
-              <div class="form-menu-elems">
-                <p>"Image"</p>
-                <p>"Description"</p>
-                <p>"Price"</p>
-                <p>"Quantity"</p>
-              </div>
-            </div>
-
-            -->
-
           <!-- <div class="form-current-orders"></div> -->
         </div>
         <div class="form-href-creator">
@@ -80,13 +57,18 @@
 
 <script>
 // import { mapActions, mapState } from 'vuex';
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 export default {
-  name: 'AddOrder',
+  name: "AddOrder",
   props: {
     id: {
       type: Number,
     },
+  },
+  data() {
+    return {
+      orders: [],
+    };
   },
   computed: mapState({
     menuList: function(state) {
@@ -186,7 +168,12 @@ export default {
   height: auto;
   border-radius: 5px;
   align-items: center;
-  background-color: rgb(97, 95, 199);
+  /* background-color: rgb(112, 110, 202); */
+  background-image: linear-gradient(
+    109.6deg,
+    rgb(82, 112, 194) 11.2%,
+    rgb(90, 50, 236) 100.2%
+  );
   /* border: 1px solid black; */
   box-shadow: 0 20px 30px rgb(0 0 0 / 7%), 0 2px 4px rgb(0 0 0 / 7%),
     0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
@@ -213,7 +200,13 @@ export default {
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  background-color: rgb(66, 93, 180);
+  background-color: rgb(66, 119, 180);
+  /* border: 1px solid gray; */
+  background-image: linear-gradient(
+    109.6deg,
+    rgb(82, 112, 194) 11.2%,
+    rgb(65, 117, 196) 100.2%
+  );
   box-shadow: 0 20px 30px rgb(0 0 0 / 7%), 0 2px 4px rgb(0 0 0 / 7%),
     0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
     0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);
@@ -224,7 +217,13 @@ export default {
   overflow-y: scroll;
   margin: 0 15px;
   border-radius: 5px;
-  background-color: rgb(66, 93, 180);
+  /* background-color: rgb(66, 93, 180);
+   */
+  background-image: linear-gradient(
+    109.6deg,
+    rgb(62, 109, 179) 11.2%,
+    rgb(87, 55, 204) 100.2%
+  );
   box-shadow: 0 20px 30px rgb(0 0 0 / 7%), 0 2px 4px rgb(0 0 0 / 7%),
     0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
     0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);

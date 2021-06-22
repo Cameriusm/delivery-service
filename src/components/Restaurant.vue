@@ -7,6 +7,12 @@
         <!-- <h1>Введите ссылку на Ресторан, {{ this.$store.state.userId }}:</h1> -->
         <h1>Введите ссылку на Ресторан:</h1>
         <form class="form" @submit.prevent="restaurantHrefConfirm">
+          <div v-if="successMessage" class="success-message">
+            {{ successMessage }}
+          </div>
+          <div v-if="errorMessage" class="server-error">
+            {{ errorMessage }}
+          </div>
           <div class="restaurant-option-checkboxes">
             <input
               type="text"
@@ -17,7 +23,11 @@
             />
           </div>
 
-          <button type="submit" class="restaurant-button-confirm">
+          <button
+            type="submit"
+            class="restaurant-button-confirm"
+            :disabled="loading"
+          >
             <div class="lds-ring-container " v-if="loading">
               <div class="lds-ring">
                 <div></div>
@@ -26,7 +36,7 @@
                 <div></div>
               </div>
             </div>
-            <div>
+            <div v-if="!loading">
               Подтвердить
             </div>
           </button>
@@ -40,8 +50,7 @@
 
 <script>
 import axios from "axios";
-import middleware from "../store/middleware";
-// import AvailableRestaurants from './AvailableRestaurants.vue';
+// import middleware from "../store/middleware";
 
 export default {
   name: "Restaurant",
@@ -58,6 +67,8 @@ export default {
       name: "",
       id: null,
       loading: false,
+      successMessage: "",
+      errorMessage: "",
     };
   },
   mounted() {
@@ -73,6 +84,7 @@ export default {
 
   methods: {
     restaurantHrefConfirm: function() {
+      this.loading = true;
       const params = new URLSearchParams();
       params.append("href", this.href);
       axios
@@ -80,26 +92,31 @@ export default {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         })
         .then((result) => {
+          this.loading = false;
+          this.successMessage = "Ресторан был добавлен";
           // setLoadingScreen(true);
           // const results = [].concat.apply([], result.data);
           // console.log(result);
 
           this.parsed = result.data;
           console.log(this.parsed);
-          const sendDetails = middleware(
-            "sendRestaurantData",
-            {
-              href: this.href,
-              // user:
-            }
-            // result.data.name
-          );
+          // const sendDetails = middleware(
+          //   "sendRestaurantData",
+          //   {
+          //     href: this.href,
+          //     userId: this.$store.state.userId,
+          //   }
+          //   // result.data.name
+          // );
 
-          console.log(sendDetails);
+          // console.log(sendDetails);
           // setParser(results);
         })
         // console.log(result.data);
         .catch(() => {
+          this.successMessage = "";
+          this.errorMessage = "Ошибка добавления ресторана";
+          this.loading = false;
           console.log("didn't make through");
           // setLoadingScreen(true);
           // const results = ['Попытка парсинга была неудачна'];
@@ -113,6 +130,28 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.server-error {
+  margin-bottom: 12px;
+  font-size: 16px;
+  padding: 10px 16px;
+  color: #a94442;
+  width: 250px;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  background: #f3dede;
+  border-radius: 4px;
+}
+.success-message {
+  background-color: #dff0d8;
+  color: #3c763d;
+  /* margin-bottom: 12px; */
+  font-size: 16px;
+  padding: 10px 16px;
+  width: 250px;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  border-radius: 4px;
+}
 .restaurant-option-main {
   padding-top: 140px;
   /* background-color: purple; */
@@ -153,8 +192,13 @@ h1 {
   border-radius: 3px;
   width: 250px;
   cursor: pointer;
+  height: 45px;
   font-size: 18px;
   transition-duration: 0.25s;
+}
+form button:disabled {
+  background-color: rgb(228, 228, 228);
+  cursor: initial;
 }
 .restaurant-button-confirm:hover {
   background-color: #f5f7f9;
@@ -247,6 +291,13 @@ form button {
   cursor: pointer;
   font-size: 18px;
   transition-duration: 0.25s;
+}
+form button:hover:disabled {
+  background-color: rgb(228, 228, 228);
+}
+form button:disabled {
+  background-color: rgb(228, 228, 228);
+  cursor: initial;
 }
 form button:hover {
   transition-duration: 0.25s;

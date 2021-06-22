@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <div class="navbar-links">
-      <div><router-link to="/">Создать</router-link></div>
+      <div v-if="loggedIn"><router-link to="/">Создать</router-link></div>
       <div v-if="loggedIn">
         <router-link to="/orders">Заказы</router-link>
       </div>
@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'Navbar',
+  name: "Navbar",
   props: {
     msg: String,
   },
@@ -29,8 +29,8 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch('destroyToken').then(() => {
-        this.$router.push({ path: '/login' });
+      this.$store.dispatch("destroyToken").then(() => {
+        this.$router.push({ path: "/login" });
       });
     },
   },
