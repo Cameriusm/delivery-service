@@ -3,41 +3,57 @@
     <div class="available-restaurants">
       <div class="form">
         <div class="restaurant-title">
-          <h1>"Restaurant"</h1>
+          <h1>Чек - "Restaurant" - "Creator name"</h1>
         </div>
         <div class="form-menu">
-          <!-- <div class="form-side-orders" id="style-4">
-            <div class="form-side-inner">
-              <div class="first-order"><div>"Order"</div></div>
-              <div><div>"Order"</div></div>
-              <div><div>"Order"</div></div>
-              <div><div>"Order"</div></div>
-              <div><div>"Order"</div></div>
-              <div><div>"Order"</div></div>
-              <div><div>"Order"</div></div>
-            </div>
-          </div> -->
-          <div class="form-menu-orders" id="style-4">
+          <div class="form-menu-user-order">
             <div>
-              <!-- <div class="form-menu-title">
-                <p>"Menu Item"</p>
-              </div> -->
+              "Name"
+            </div>
+            <div>
+              "Number"
+            </div>
+            <div>
+              "Address"
+            </div>
+            <div>
+              "Price"
             </div>
           </div>
-          <!-- <div class="form-current-orders"></div> -->
+          <div class="form-menu-user-order">
+            <div>
+              "Name"
+            </div>
+            <div>
+              "Number"
+            </div>
+            <div>
+              "Address"
+            </div>
+            <div>
+              "Price"
+            </div>
+          </div>
+          <div class="form-menu-user-order">
+            <div>
+              "Name"
+            </div>
+            <div>
+              "Number"
+            </div>
+            <div>
+              "Address"
+            </div>
+            <div>
+              "Price"
+            </div>
+          </div>
         </div>
         <div class="form-href-creator">
           <div class="form-href-buttons">
-            <button>Подтвердить заказ</button>
+            <button>Оплатить заказ</button>
           </div>
         </div>
-
-        <!-- <div class="form-href">
-          <p>"название"</p>
-          <p>"описание"</p>
-          <p>"цена"</p>
-          <p>"img url"</p>
-        </div> -->
       </div>
     </div>
   </div>
@@ -51,26 +67,51 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.add-order button {
-  appearance: none;
-  margin-top: 10px;
-  /* margin: 0 auto; */
-  outline: 0;
-  background-color: white;
-  border: 0;
-  padding: 10px 15px;
-  color: #5d34ec;
-  border-radius: 3px;
+.form-menu-user-order > div {
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center;
+  font-weight: 700;
+  /* height: 100px; */
+  /* line-height: 100%; */
+  /* text-align: center; */
+  flex-direction: row;
+  /* background-image: linear-gradient(
+    109.6deg,
+    rgb(104, 138, 184) 11.2%,
+    rgb(101, 75, 196) 100.2%
+  ); */
+  /* align-items: center; */
   width: 100px;
-  font-size: 12px;
-  height: 40px;
-
-  cursor: pointer;
-  /* font-size: 15px; */
-  transition-duration: 0.25s;
+  height: 80%;
+  margin: 0 25px;
+  border-radius: 15px;
+  text-align: center;
+  background-color: rgb(107, 142, 219);
 }
-.add-order input {
-  width: 30px;
+.form-menu-user-order {
+  /* margin: 25px 0; */
+  margin: 25px auto;
+  vertical-align: middle;
+  /* width: 90%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 80%;
+  height: 60px;
+  background-image: linear-gradient(
+    109.6deg,
+    rgb(76, 126, 190) 11.2%,
+    rgb(101, 75, 196) 100.2%
+  );
+
+  box-shadow: 0 20px 30px rgb(0 0 0 / 7%), 0 2px 4px rgb(0 0 0 / 7%),
+    0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
+    0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);
+  /* border: 1px solid black; */
+  /* background: red; */
+  border-radius: 15px;
 }
 #style-4::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -110,129 +151,13 @@ export default {
     color-stop(0.86, rgb(28, 58, 148))
   );
 }
-.form-menu-elems {
-  display: flex;
-  justify-content: center;
-  /* margin: 0 auto; */
-}
-.form-menu-elems p {
-  margin: 0 25px;
-}
 
-.form-side-inner > div > div {
-  cursor: pointer;
-  line-height: 50px;
-  text-align: left;
-  margin-left: 15%;
-}
-.form-menu-orders > div > div {
-  line-height: 50px;
-  text-align: center;
-}
-.form-menu-orders > div {
-  margin: 15px auto;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  /* margin: 0 auto; */
-  width: 90%;
-  /* margin-left: 15px; */
-  height: auto;
-  border-radius: 5px;
-  align-items: center;
-  background-color: rgb(97, 95, 199);
-  /* border: 1px solid black; */
-  box-shadow: 0 20px 30px rgb(0 0 0 / 7%), 0 2px 4px rgb(0 0 0 / 7%),
-    0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
-    0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);
-}
-.form-side-inner > div {
-  box-shadow: 0 20px 30px rgb(0 0 0 / 7%), 0 2px 4px rgb(0 0 0 / 7%),
-    0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
-    0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);
-  width: 80%;
-  margin: 10px auto;
-  height: 50px;
-  border-radius: 5px;
-
-  background-color: rgb(108, 106, 219);
-  /* background-color: rgb(77, 107, 206); */
-}
-.form-menu {
-  display: flex;
-}
-
-.form-side-orders {
-  overflow-y: scroll;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(66, 93, 180);
-  box-shadow: 0 20px 30px rgb(0 0 0 / 7%), 0 2px 4px rgb(0 0 0 / 7%),
-    0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
-    0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);
-  width: 200px;
-  height: 400px;
-}
-.form-menu-orders {
-  overflow-y: scroll;
-  margin: 0 15px;
-  border-radius: 5px;
-  background-color: rgb(66, 93, 180);
-  /* background-color: rgb(91, 66, 180); */
-  box-shadow: 0 20px 30px rgb(0 0 0 / 7%), 0 2px 4px rgb(0 0 0 / 7%),
-    0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
-    0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);
-  /* background-image: linear-gradient(
-    109.6deg,
-    rgb(91, 66, 180) 11.2%,
-    rgb(90, 50, 236) 100.2%
-  ); */
-
-  width: 100%;
-  height: 400px;
-}
-/*
-.form-current-orders {
-  border-radius: 5px;
-  margin: 0 25px;
-  background-color: rgb(91, 66, 180);
-  width: 150px;
-  height: 500px;
-}*/
 .restaurant-title {
   border-radius: 5px;
   padding-top: 5px;
   padding-bottom: 5px;
   margin-bottom: 15px;
   /* background-color: rgb(91, 66, 180); */
-}
-.delete-button p {
-  cursor: pointer;
-  align-items: center;
-  border-radius: 5px;
-  width: auto;
-  text-align: center;
-  height: auto;
-  background-color: rgb(152, 171, 236);
-}
-.delete-button {
-  cursor: pointer;
-  align-items: center;
-  border-radius: 5px;
-  /* width: 20px; */
-  text-align: center;
-
-  background-color: rgb(152, 171, 236);
-}
-.form-href-header {
-  justify-content: space-between;
-  display: flex;
-}
-
-.form-href-credentials {
-  text-align: left;
-  padding: 10px;
 }
 
 .availables-restaurants-main {
@@ -276,7 +201,7 @@ export default {
   padding: 10px 15px;
   color: #5d34ec;
   border-radius: 3px;
-  width: 190px;
+  width: 150px;
   cursor: pointer;
   font-size: 15px;
   transition-duration: 0.25s;
@@ -291,43 +216,12 @@ export default {
   width: 190px;
   margin: 0 auto;
 }
-.form-href-creator {
+.form-href-creator button {
   cursor: pointer;
-  /* margin: 20px auto 20px auto; */
   padding: 10px;
-  border-radius: 15px;
-  /* width: 80%; */
-  /* background-image: linear-gradient(
-    109.6deg,
-    rgb(73, 143, 184) 11.2%,
-    rgb(91, 61, 199) 100.2%
-  ); */
-  /* background-color: rgb(54, 125, 184); */
+  border-radius: 5px;
   margin-top: 10px;
   transition: background-image 1s ease-in-out;
-  text-align: left;
+  text-align: center;
 }
-/* .form-href {
-}
-.form-href p {
-  margin: 0 5px;
-} */
-/* .form-href:hover {
-  transition: background-image 1s ease-in-out;
-  transition-duration: 0.55s;
-  background-image: linear-gradient(
-    109.6deg,
-    rgb(91, 61, 199) 11.2%,
-    rgb(73, 143, 184) 100.2%
-  );
-  background-image: linear-gradient(
-    109.6deg,
-    rgb(78, 153, 197) 11.2%,
-    rgb(110, 79, 221) 100.2%
-  );
-  background: rgba(122, 212, 240, 0.1);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
-    0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
-    0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
-} */
 </style>

@@ -49,11 +49,11 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 // import middleware from "../store/middleware";
 
 export default {
-  name: "Restaurant",
+  name: 'Restaurant',
   props: {
     msg: String,
   },
@@ -62,17 +62,17 @@ export default {
   },
   data: function() {
     return {
-      href: "",
+      href: '',
       parsed: [],
-      name: "",
+      name: '',
       id: null,
       loading: false,
-      successMessage: "",
-      errorMessage: "",
+      successMessage: '',
+      errorMessage: '',
     };
   },
   mounted() {
-    console.log(this.$store.state.userId);
+    console.log(this.$store.state.userInfo.userId);
   },
   // created() {
   //   this.$store.dispatch("retrieveUser").then((response) => {
@@ -86,14 +86,15 @@ export default {
     restaurantHrefConfirm: function() {
       this.loading = true;
       const params = new URLSearchParams();
-      params.append("href", this.href);
+      params.append('href', this.href);
       axios
-        .post("http://localhost:3001/api/parse", params, {
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        .post('http://localhost:3001/api/parse', params, {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         })
         .then((result) => {
           this.loading = false;
-          this.successMessage = "Ресторан был добавлен";
+          this.errorMessage = '';
+          this.successMessage = 'Ресторан был добавлен';
           // setLoadingScreen(true);
           // const results = [].concat.apply([], result.data);
           // console.log(result);
@@ -114,8 +115,8 @@ export default {
         })
         // console.log(result.data);
         .catch(() => {
-          this.successMessage = "";
-          this.errorMessage = "Ошибка добавления ресторана";
+          this.successMessage = '';
+          this.errorMessage = 'Ошибка добавления ресторана';
           this.loading = false;
           console.log("didn't make through");
           // setLoadingScreen(true);
@@ -177,7 +178,7 @@ h1 {
   padding-top: 25px;
   color: white;
   font-weight: 200;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   margin-bottom: 20px;
 }
 
@@ -220,27 +221,27 @@ form button:disabled {
 }
 .restaurant::-webkit-input-placeholder {
   /* WebKit browsers */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   color: white;
   font-weight: 300;
 }
 .restaurant::-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
 .restaurant::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
 .restaurant::-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   color: white;
   font-weight: 300;
 }

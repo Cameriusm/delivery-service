@@ -11,7 +11,14 @@ axios.defaults.baseURL = 'http://laravel/api';
 export const store = new Vuex.Store({
   state: {
     token: localStorage.getItem('access_token') || null,
-    userId: localStorage.getItem('user_id') || null,
+    // userId: localStorage.getItem('user_id') || null,
+    userInfo: {
+      userId: localStorage.getItem('user_id') || null,
+      firstName: localStorage.getItem('user_first_name') || null,
+      secondName: localStorage.getItem('user_second_name') || null,
+      phoneNumber: localStorage.getItem('user_phone_number') || null,
+      address: localStorage.getItem('user_address') || null,
+    },
     // userId: localStorage.getItem('user_id') || null,
   },
   getters: {
@@ -25,14 +32,23 @@ export const store = new Vuex.Store({
       state.token = token;
       // state.userId = userId;
     },
-    retrieveUser(state, userId) {
+    retrieveUser(state, userId, firstName, secondName, phoneNumber, address) {
       // retrieveToken(state, token, userId) {
-      state.userId = userId;
+      state.userInfo.userId = userId;
+      state.userInfo.firstName = firstName;
+      state.userInfo.secondName = secondName;
+      state.userInfo.phoneNumber = phoneNumber;
+      state.userInfo.address = address;
       // state.userId = userId;
     },
     destroyToken(state) {
       state.token = null;
-      state.userId = null;
+      state.userInfo.userId = null;
+      state.userInfo.firstName = null;
+      state.userInfo.secondName = null;
+      state.userInfo.phoneNumber = null;
+      state.userInfo.address = null;
+      // state.userInfo.userId = null;
     },
   },
   actions: {
@@ -49,8 +65,24 @@ export const store = new Vuex.Store({
         .then((response) => {
           // localStorage.setItem("user_id", userId);
           const userId = response.data.id;
+          const firstName = response.data.first_name;
+          const secondName = response.data.second_name;
+          const phoneNumber = response.data.phone_number;
+          const address = response.data.address;
+          // const first_name = response.data.first_name;
           localStorage.setItem('user_id', userId);
-          context.commit('retrieveUser', userId);
+          localStorage.setItem('user_first_name', firstName);
+          localStorage.setItem('user_second_name', secondName);
+          localStorage.setItem('user_phone_number', phoneNumber);
+          localStorage.setItem('user_address', address);
+          context.commit(
+            'retrieveUser',
+            userId,
+            firstName,
+            secondName,
+            phoneNumber,
+            address
+          );
           return response;
           // resolve(response);
         })
@@ -77,6 +109,10 @@ export const store = new Vuex.Store({
         .catch((error) => {
           localStorage.removeItem('access_token');
           localStorage.removeItem('user_id');
+          localStorage.removeItem('user_first_name');
+          localStorage.removeItem('user_second_name');
+          localStorage.removeItem('user_phone_number');
+          localStorage.removeItem('user_address');
           context.commit('destroyToken');
           throw error;
         });
