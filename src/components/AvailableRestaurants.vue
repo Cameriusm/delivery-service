@@ -10,7 +10,9 @@
             v-for="order in ordersList"
             :key="order.name"
           >
-            <p><span>Ресторан:</span><br />{{ order.restaurant.name }}</p>
+            <p class="restaurant">
+              <span>Ресторан:</span><br />{{ order.restaurant.name }}
+            </p>
             <p>
               <span>Создатель:</span><br />{{ order.restaurant.owner.name }}
             </p>
@@ -27,10 +29,10 @@
 </template>
 
 <script>
-import Bill from "./Bill.vue";
-import { mapActions, mapState } from "vuex";
+import Bill from './Bill.vue';
+import { mapActions, mapState } from 'vuex';
 export default {
-  name: "AvailableRestaurants",
+  name: 'AvailableRestaurants',
   components: {
     Bill,
   },
@@ -49,7 +51,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions("restaurants", ["getRestaurants"]),
+    ...mapActions('restaurants', ['getRestaurants']),
     // selectRestaurant(id) {
     selectRestaurant(id) {
       // this.$router.push({ path: '/add', params: { id: 1 } });
@@ -68,6 +70,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.restaurant {
+  width: 150px;
+}
 .availables-restaurants-main {
   background-image: linear-gradient(
     109.6deg,
@@ -126,7 +131,7 @@ h1 {
 .form-href p {
   text-align: center;
   margin: 0 25px;
-  width: 100%;
+  /* width: 100%; */
 }
 .form-href p span {
   font-size: 14px;

@@ -3,55 +3,71 @@
     <div class="available-restaurants">
       <div class="form">
         <div class="restaurant-title">
-          <h1>Чек - "Restaurant" - "Creator name"</h1>
+          <h1>Итоговый чек заказа по ресторану "Макдональдс"</h1>
+          <!-- <h2>По ресторану "Макдональдс"</h2> -->
         </div>
         <div class="form-menu">
           <div class="form-menu-user-order">
             <div>
-              "Name"
+              <p>Заказано:</p>
+              <p>Kate Smith</p>
             </div>
             <div>
-              "Number"
+              <p>Номер:</p>
+              <p>89445975134</p>
             </div>
             <div>
-              "Address"
+              <p>Цена:</p>
+              <p>
+                864 ₽
+              </p>
+            </div>
+            <!-- <div>
+              Просмотреть
+            </div> -->
+          </div>
+          <div class="form-menu-user-order">
+            <div>
+              <p>Заказано:</p>
+              <p>Trevor Craig</p>
             </div>
             <div>
-              "Price"
+              <p>Номер:</p>
+              <p>8974362275</p>
+            </div>
+
+            <div>
+              <p>Цена:</p>
+              <p>1200 ₽</p>
             </div>
           </div>
           <div class="form-menu-user-order">
             <div>
-              "Name"
+              <p>Заказано:</p>
+              <p>Susan White</p>
             </div>
             <div>
-              "Number"
+              <p>Номер:</p>
+              <p>89297566453</p>
             </div>
+
             <div>
-              "Address"
-            </div>
-            <div>
-              "Price"
-            </div>
-          </div>
-          <div class="form-menu-user-order">
-            <div>
-              "Name"
-            </div>
-            <div>
-              "Number"
-            </div>
-            <div>
-              "Address"
-            </div>
-            <div>
-              "Price"
+              <p>Цена:</p>
+              <p>354 ₽</p>
             </div>
           </div>
         </div>
         <div class="form-href-creator">
           <div class="form-href-buttons">
-            <button>Оплатить заказ</button>
+            <div>
+              Создатель:<br />
+              <span> Daniel Martinez </span>
+            </div>
+            <div>
+              Итоговая стоимость:<br />
+              <span> 2418 ₽ </span>
+            </div>
+            <!-- <button>Оплатить заказ</button> -->
           </div>
         </div>
       </div>
@@ -67,27 +83,43 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+h1 {
+  font-size: 28px;
+  line-height: 32px;
+}
+/* .form-menu-user-order > div > div {
+  display: flex;
+  flex-direction: column;
+} */
+.form-menu-user-order > div > p:first-child {
+  font-size: 14px;
+
+  /* font-weight: 700; */
+}
 .form-menu-user-order > div {
   display: flex;
   justify-content: center; /* align horizontal */
   align-items: center;
-  font-weight: 700;
+  flex-direction: column;
   /* height: 100px; */
   /* line-height: 100%; */
   /* text-align: center; */
-  flex-direction: row;
+  /* flex-direction: row; */
   /* background-image: linear-gradient(
     109.6deg,
     rgb(104, 138, 184) 11.2%,
     rgb(101, 75, 196) 100.2%
   ); */
   /* align-items: center; */
-  width: 100px;
+  /* width: 100px; */
+  width: 125px;
+  line-height: 20px;
+  padding: 0 15px;
   height: 80%;
   margin: 0 25px;
   border-radius: 15px;
   text-align: center;
-  background-color: rgb(107, 142, 219);
+  /* background-color: rgb(107, 142, 219); */
 }
 .form-menu-user-order {
   /* margin: 25px 0; */
@@ -98,7 +130,7 @@ export default {
   justify-content: center;
   align-items: center;
 
-  width: 80%;
+  width: 70%;
   height: 60px;
   background-image: linear-gradient(
     109.6deg,
@@ -182,7 +214,7 @@ export default {
 
   color: white;
   padding: 20px;
-  width: 60%;
+  width: 55%;
   height: auto;
   margin: 0 auto 0 auto;
 }
@@ -212,8 +244,29 @@ export default {
 /* .form-href button:hover {
   background-color: #f5f7f9;
 } */
+.form-href-buttons span {
+  font-weight: 700;
+  font-size: 20px;
+}
+.form-href-buttons > div:last-child {
+  /* font-size: 18px; */
+  font-size: 16px;
+  margin-right: 135px;
+}
+.form-href-buttons > div:first-child {
+  font-size: 16px;
+  margin-left: 135px;
+  /* font-size: 18px; */
+}
+/* .form-href-buttons > div {
+  margin: 0 103px;
+} */
 .form-href-buttons {
-  width: 190px;
+  display: flex;
+  /* font-size: 24px; */
+  justify-content: space-between;
+  /* width: 290px; */
+  font-size: 20px;
   margin: 0 auto;
 }
 .form-href-creator button {
