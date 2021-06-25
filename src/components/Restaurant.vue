@@ -154,7 +154,7 @@ export default {
   border-radius: 4px;
 }
 .restaurant-option-main {
-  padding-top: 140px;
+  padding-top: 75px;
   /* background-color: purple; */
 }
 .restaurant-option {
@@ -215,7 +215,7 @@ form button:disabled {
     rgba(62, 161, 219, 1) 11.2%,
     rgb(90, 50, 236) 100.2%
   );
-  height: 100vh;
+  min-height: 92vh;
 
   box-sizing: border-box;
 }

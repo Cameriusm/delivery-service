@@ -43,12 +43,12 @@
 <script>
 // import { mapActions } from 'vuex';
 export default {
-  name: "Login",
+  name: 'Login',
   data() {
     return {
-      username: "",
-      password: "",
-      serverError: "",
+      username: '',
+      password: '',
+      serverError: '',
       successMessage: this.dataSuccessMessage,
       loading: false,
     };
@@ -58,22 +58,22 @@ export default {
     login() {
       this.loading = true;
       this.$store
-        .dispatch("retrieveToken", {
+        .dispatch('retrieveToken', {
           username: this.username,
           password: this.password,
         })
         .then((response) => {
           console.log(response);
           this.loading = false;
-          this.$router.push({ path: "/" });
+          this.$router.push({ path: '/' });
         })
         // .catch((error) => {
         .catch((error) => {
           console.log(error);
           this.loading = false;
           this.serverError = error.response.data;
-          this.password = "";
-          this.successMessage = "";
+          this.password = '';
+          this.successMessage = '';
         });
     },
   },
@@ -118,10 +118,10 @@ export default {
   border-radius: 4px;
 }
 h1 {
-  padding-top: 180px;
+  padding-top: 100px;
   color: white;
   font-weight: 200;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 .login-form {
   background-image: linear-gradient(
@@ -129,33 +129,33 @@ h1 {
     rgb(62, 161, 219) 11.2%,
     rgba(93, 52, 236, 1) 100.2%
   );
-  height: 100%;
+  height: 92vh;
 
   box-sizing: border-box;
 }
 .login-form::-webkit-input-placeholder {
   /* WebKit browsers */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   color: white;
   font-weight: 300;
 }
 .login-form::-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
 .login-form::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
 .login-form::-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   color: white;
   font-weight: 300;
 }

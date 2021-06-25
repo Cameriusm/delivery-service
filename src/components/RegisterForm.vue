@@ -95,20 +95,20 @@
 
 <script>
 export default {
-  name: "Register",
+  name: 'Register',
   props: {
     msg: String,
   },
   data() {
     return {
-      first_name: "",
-      second_name: "",
-      phone_number: "",
-      address: "",
-      email: "",
-      password: "",
-      serverErrors: "",
-      successMessage: "",
+      first_name: '',
+      second_name: '',
+      phone_number: '',
+      address: '',
+      email: '',
+      password: '',
+      serverErrors: '',
+      successMessage: '',
       loading: false,
     };
   },
@@ -116,7 +116,7 @@ export default {
     register() {
       this.loading = true;
       this.$store
-        .dispatch("register", {
+        .dispatch('register', {
           first_name: this.first_name,
           second_name: this.second_name,
           phone_number: this.phone_number,
@@ -126,10 +126,10 @@ export default {
         })
         .then(() => {
           this.loading = false;
-          this.successMessage = "Регистрация прошла успешно!";
+          this.successMessage = 'Регистрация прошла успешно!';
           console.log(this.successMessage);
           this.$router.push({
-            path: "/login",
+            path: '/login',
             params: { dataSuccessMessage: this.successMessage },
           });
         })
@@ -174,10 +174,10 @@ export default {
   border-radius: 4px;
 }
 h1 {
-  padding-top: 130px;
+  padding-top: 75px;
   color: white;
   font-weight: 200;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 .register-form {
   background-image: linear-gradient(
@@ -185,33 +185,33 @@ h1 {
     rgba(62, 161, 219, 1) 11.2%,
     rgba(93, 52, 236, 1) 100.2%
   );
-  height: 100vh;
+  height: 92vh;
 
   box-sizing: border-box;
 }
 .register-form::-webkit-input-placeholder {
   /* WebKit browsers */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   color: white;
   font-weight: 300;
 }
 .register-form::-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
 .register-form::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
 .register-form::-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   color: white;
   font-weight: 300;
 }

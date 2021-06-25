@@ -11,7 +11,7 @@
             :key="order.name"
           >
             <p class="restaurant">
-              <span>Ресторан:</span><br />{{ order.restaurant.name }}
+              <span>Ресторан:</span><br />"{{ order.restaurant.name }}"
             </p>
             <p>
               <span>Создатель:</span><br />{{ order.restaurant.owner.name }}
@@ -20,19 +20,15 @@
           </div>
         </div>
       </div>
-      <!-- <div class="test-menu">
-        <Bill />
-      </div> -->
-      <!-- <button>Popup</button> -->
     </div>
   </div>
 </template>
 
 <script>
 // import Bill from "./Bill.vue";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState } from 'vuex';
 export default {
-  name: "AvailableRestaurants",
+  name: 'AvailableRestaurants',
   components: {
     // Bill,
   },
@@ -51,7 +47,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions("restaurants", ["getRestaurants"]),
+    ...mapActions('restaurants', ['getRestaurants']),
     // selectRestaurant(id) {
     selectRestaurant(id) {
       // this.$router.push({ path: '/add', params: { id: 1 } });
@@ -76,7 +72,7 @@ export default {
     rgba(62, 161, 219, 1) 11.2%,
     rgb(90, 50, 236) 100.2%
   );
-  height: 100vh;
+  min-height: 92vh;
   /* height: 200vh; */
 }
 h1 {
@@ -101,7 +97,7 @@ h1 {
   margin: 0 auto 0 auto;
 }
 .available-restaurants {
-  padding-top: 140px;
+  padding-top: 75px;
   margin: 0 auto 0 auto;
 }
 .form-href {
@@ -131,7 +127,13 @@ h1 {
   /* margin: 0 25px; */
   /* width: 100%; */
 }
+.form-href p {
+  font-weight: 600;
+  /* font-weight: 700;
+  font-weight: 700; */
+}
 .form-href p span {
+  font-weight: 400;
   font-size: 14px;
 }
 .form-href:hover {

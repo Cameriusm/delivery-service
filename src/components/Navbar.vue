@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: "Navbar",
+  name: 'Navbar',
   props: {
     msg: String,
   },
@@ -29,8 +29,8 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch("destroyToken").then(() => {
-        this.$router.push({ path: "/login" });
+      this.$store.dispatch('destroyToken').then(() => {
+        this.$router.push({ path: '/login' });
       });
     },
   },
@@ -45,9 +45,10 @@ export default {
     0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
     0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
   color: white;
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
-  height: 55px;
+  /* height: 55px; */
+  height: 8vh;
   /* z-index: 1000; */
 }
 .navbar-links {

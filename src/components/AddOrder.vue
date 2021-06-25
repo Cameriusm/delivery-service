@@ -26,7 +26,7 @@
               <div>
                 <div>
                   <div class="empty-order-list">
-                    Здесь появятся ваши заказы!
+                    Здесь появятся ваши позиции!
                   </div>
                 </div>
               </div>
@@ -64,7 +64,7 @@
               v-on:click="addOrder"
               :disabled="!orders.length"
             >
-              Добавить заказ
+              Добавить к заказу
             </button>
             <div v-if="price" class="purchase-price">
               Стоимость:
@@ -83,9 +83,9 @@
 
 <script>
 // import { mapActions, mapState } from 'vuex';
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 export default {
-  name: "AddOrder",
+  name: 'AddOrder',
   props: {
     id: {
       type: Number,
@@ -102,7 +102,7 @@ export default {
       deep: true,
       handler(newVal) {
         this.price = newVal.reduce(
-          (acc, e) => +e.price.replace(/\D/g, "") * e.quantity + acc,
+          (acc, e) => +e.price.replace(/\D/g, '') * e.quantity + acc,
           0
         );
       },
@@ -337,7 +337,7 @@ export default {
     0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
     0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);
   width: 200px;
-  height: 400px;
+  height: 350px;
 }
 .form-menu-orders {
   overflow-y: scroll;
@@ -355,7 +355,7 @@ export default {
     0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);
   width: 100%;
 
-  height: 400px;
+  height: 350px;
 }
 .restaurant-title {
   border-radius: 5px;
@@ -398,8 +398,9 @@ export default {
     rgba(62, 161, 219, 1) 11.2%,
     rgb(90, 50, 236) 100.2%
   );
-  min-height: 100vh;
-  padding-bottom: 75px;
+  /* min-height: 95vh; */
+  min-height: 92vh;
+  /* padding-bottom: 75px; */
 }
 .form {
   /* background-color: rgb(39, 75, 160); */
@@ -420,7 +421,7 @@ export default {
   margin: 0 auto 0 auto;
 }
 .available-restaurants {
-  padding-top: 125px;
+  padding-top: 30px;
   margin: 0 auto 0 auto;
 }
 

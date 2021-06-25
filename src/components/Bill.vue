@@ -3,7 +3,7 @@
     <div class="available-restaurants">
       <div class="form">
         <div class="restaurant-title">
-          <h1>Итоговый чек заказа по ресторану "{{ menuTitle }}"</h1>
+          <h1>Чек ресторана "{{ menuTitle }}"</h1>
           <!-- <h2>По ресторану "Макдональдс"</h2> -->
         </div>
         <div v-if="ordersList" class="form-menu" id="style-4">
@@ -14,7 +14,7 @@
                 <p>{{ order.owner.name }}</p>
               </div>
               <div>
-                <p>Добавил:</p>
+                <p>Номер:</p>
                 <p>{{ order.owner.phone }}</p>
               </div>
               <div>
@@ -43,9 +43,9 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 export default {
-  name: "RestaurantMenu",
+  name: 'RestaurantMenu',
   data() {
     return {
       price: this.$store.getters.ordersPrice(this.$route.params.id - 1),
@@ -76,7 +76,7 @@ export default {
       deep: true,
       handler(newVal) {
         this.price = newVal.reduce(
-          (acc, e) => +e.price.replace(/\D/g, "") * e.quantity + acc,
+          (acc, e) => +e.price.replace(/\D/g, '') * e.quantity + acc,
           0
         );
       },
@@ -202,7 +202,7 @@ h1 {
     rgba(62, 161, 219, 1) 11.2%,
     rgb(90, 50, 236) 100.2%
   );
-  height: 100vh;
+  min-height: 92vh;
 }
 .form {
   /* background-color: rgb(39, 75, 160); */
@@ -223,7 +223,7 @@ h1 {
   margin: 0 auto 0 auto;
 }
 .available-restaurants {
-  padding-top: 125px;
+  padding-top: 75px;
   margin: 0 auto 0 auto;
 }
 
