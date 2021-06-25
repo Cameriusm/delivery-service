@@ -20,21 +20,21 @@
           </div>
         </div>
       </div>
-      <div class="test-menu">
+      <!-- <div class="test-menu">
         <Bill />
-      </div>
+      </div> -->
       <!-- <button>Popup</button> -->
     </div>
   </div>
 </template>
 
 <script>
-import Bill from './Bill.vue';
-import { mapActions, mapState } from 'vuex';
+// import Bill from "./Bill.vue";
+import { mapActions, mapState } from "vuex";
 export default {
-  name: 'AvailableRestaurants',
+  name: "AvailableRestaurants",
   components: {
-    Bill,
+    // Bill,
   },
 
   state: {
@@ -51,7 +51,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('restaurants', ['getRestaurants']),
+    ...mapActions("restaurants", ["getRestaurants"]),
     // selectRestaurant(id) {
     selectRestaurant(id) {
       // this.$router.push({ path: '/add', params: { id: 1 } });
@@ -70,9 +70,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.restaurant {
-  width: 150px;
-}
 .availables-restaurants-main {
   background-image: linear-gradient(
     109.6deg,
@@ -80,7 +77,7 @@ export default {
     rgb(90, 50, 236) 100.2%
   );
   height: 100vh;
-  height: 200vh;
+  /* height: 200vh; */
 }
 h1 {
   margin-bottom: 25px;
@@ -112,7 +109,7 @@ h1 {
     0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
     0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   cursor: pointer;
   margin: 20px auto 20px auto;
   padding: 10px;
@@ -130,7 +127,8 @@ h1 {
 }
 .form-href p {
   text-align: center;
-  margin: 0 25px;
+  width: 150px;
+  /* margin: 0 25px; */
   /* width: 100%; */
 }
 .form-href p span {
@@ -156,7 +154,7 @@ h1 {
 }
 button {
   margin-top: 140px;
-  padding: 15px;
+  /* padding: 15px; */
 }
 .test-menu {
   margin-top: 200px;

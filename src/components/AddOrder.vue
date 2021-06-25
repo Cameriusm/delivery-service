@@ -59,12 +59,21 @@
         </div>
         <div class="form-href-creator">
           <div class="form-href-buttons">
-            <button :disabled="!orders.length">Добавить заказ</button>
+            <button
+              class="add-new-order-button"
+              v-on:click="addOrder"
+              :disabled="!orders.length"
+            >
+              Добавить заказ
+            </button>
             <div v-if="price" class="purchase-price">
               Стоимость:
               <!-- <span v-if="price">{{ price }} ₽</span> -->
               <span>{{ price }} ₽</span>
             </div>
+            <button class="receipt-button" v-on:click="redirectBill">
+              Итоговый Чек
+            </button>
           </div>
         </div>
       </div>
@@ -74,9 +83,9 @@
 
 <script>
 // import { mapActions, mapState } from 'vuex';
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 export default {
-  name: 'AddOrder',
+  name: "AddOrder",
   props: {
     id: {
       type: Number,
@@ -92,19 +101,10 @@ export default {
     orders: {
       deep: true,
       handler(newVal) {
-        // this.price = newVal.reduce((e, acc) => {
-        //   return e.price + acc;
-        // }, acc);
-        // this.price = newVal.reduce((acc,e,i)=> +e.price.replace(/\D/g, "") + acc,0)
         this.price = newVal.reduce(
-          (acc, e) => +e.price.replace(/\D/g, '') * e.quantity + acc,
+          (acc, e) => +e.price.replace(/\D/g, "") * e.quantity + acc,
           0
         );
-        // console.log(newVal);
-        // console.log(this.price);
-
-        // this.answer = 'Waiting for you to stop typing...'
-        // this.debouncedGetAnswer()
       },
     },
   },
@@ -121,7 +121,7 @@ export default {
   }),
   beforeMount() {
     // console.log(this.$route);
-    // console.log(this.$route.params.id);
+    console.log(this.$route.params.id);
   },
   methods: {
     addNewOrder(item) {
@@ -131,23 +131,25 @@ export default {
           if (el.title === item.title) {
             isOrderExist = true;
             el.quantity++;
-            // console.log(el.title + ' it is');
-          } else {
-            // console.log(el.title + ' is not');
           }
         })
       )
         if (!isOrderExist) {
           this.orders.push({ ...item, quantity: 1 });
         }
-
-      // console.log(isOrderExist);
-      // console.log(this.orders);
-      // this.orders.filter()
-      // this.orders.push({ ...item, quantity: 1 });
     },
     deleteOrder(index) {
       this.orders.splice(index, 1);
+    },
+    addOrder() {
+      console.log(this.orders);
+      console.log(this.price);
+    },
+    redirectBill() {
+      this.$router.push({
+        path: `/orders/bill/${this.$route.params.id}`,
+        params: { id: this.$route.params.id },
+      });
     },
   },
 };
@@ -155,6 +157,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.add-new-order-button {
+  margin-left: 25px;
+}
+.receipt-button {
+  /* padding-left: auto; */
+  /* margin-left: 150px; */
+  margin-left: auto;
+  margin-right: 25px;
+  /* float:right; */
+}
 .purchase-price {
   margin-left: 25px;
   font-weight: 700;
@@ -164,6 +176,7 @@ export default {
 }
 .form-href-buttons {
   display: flex;
+  /* justify-content: center; */
   /* align-items: center; */
 }
 .form-menu-orders-inside {
@@ -267,6 +280,7 @@ export default {
 .form-side-inner > div {
   /* margin-top: 5px; */
   position: relative;
+  /* z-index: -1; */
   box-shadow: 0 20px 30px rgb(0 0 0 / 7%), 0 2px 4px rgb(0 0 0 / 7%),
     0 4px 8px rgb(0 0 0 / 7%), 0 8px 16px rgb(0 0 0 / 7%),
     0 16px 32px rgb(0 0 0 / 7%), 0 32px 64px rgb(0 0 0 / 7%);
@@ -435,9 +449,9 @@ export default {
 .form-href-creator button:hover {
   background-color: #f5f7f9;
 }
-.form-href-creator button {
-  margin-left: 15px;
-}
+/* .form-href-creator button {
+  
+} */
 .form-href-creator {
   padding: 10px;
   border-radius: 15px;

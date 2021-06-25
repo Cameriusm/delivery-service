@@ -3,57 +3,24 @@
     <div class="available-restaurants">
       <div class="form">
         <div class="restaurant-title">
-          <h1>Итоговый чек заказа по ресторану "Макдональдс"</h1>
+          <h1>Итоговый чек заказа по ресторану "{{ menuTitle }}"</h1>
           <!-- <h2>По ресторану "Макдональдс"</h2> -->
         </div>
-        <div class="form-menu">
-          <div class="form-menu-user-order">
-            <div>
-              <p>Заказано:</p>
-              <p>Kate Smith</p>
-            </div>
-            <div>
-              <p>Номер:</p>
-              <p>89445975134</p>
-            </div>
-            <div>
-              <p>Цена:</p>
-              <p>
-                864 ₽
-              </p>
-            </div>
-            <!-- <div>
-              Просмотреть
-            </div> -->
-          </div>
-          <div class="form-menu-user-order">
-            <div>
-              <p>Заказано:</p>
-              <p>Trevor Craig</p>
-            </div>
-            <div>
-              <p>Номер:</p>
-              <p>8974362275</p>
-            </div>
-
-            <div>
-              <p>Цена:</p>
-              <p>1200 ₽</p>
-            </div>
-          </div>
-          <div class="form-menu-user-order">
-            <div>
-              <p>Заказано:</p>
-              <p>Susan White</p>
-            </div>
-            <div>
-              <p>Номер:</p>
-              <p>89297566453</p>
-            </div>
-
-            <div>
-              <p>Цена:</p>
-              <p>354 ₽</p>
+        <div v-if="ordersList" class="form-menu" id="style-4">
+          <div v-for="order in ordersList" :key="order.name">
+            <div class="form-menu-user-order">
+              <div>
+                <p>Добавил:</p>
+                <p>{{ order.owner.name }}</p>
+              </div>
+              <div>
+                <p>Добавил:</p>
+                <p>{{ order.owner.phone }}</p>
+              </div>
+              <div>
+                <p>Стоимость:</p>
+                <p>{{ order.price }} ₽</p>
+              </div>
             </div>
           </div>
         </div>
@@ -61,11 +28,11 @@
           <div class="form-href-buttons">
             <div>
               Создатель:<br />
-              <span> Daniel Martinez </span>
+              <span> {{ creator }} </span>
             </div>
             <div>
               Итоговая стоимость:<br />
-              <span> 2418 ₽ </span>
+              <span>{{ price }} ₽</span>
             </div>
             <!-- <button>Оплатить заказ</button> -->
           </div>
@@ -76,8 +43,45 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-  name: 'RestaurantMenu',
+  name: "RestaurantMenu",
+  data() {
+    return {
+      price: this.$store.getters.ordersPrice(this.$route.params.id - 1),
+    };
+  },
+  beforeMount() {
+    // console.log(this.$route);
+    // console.log(this.$route.params.id);
+    // console.log(this.$store.getters.ordersPrice(0));
+  },
+  computed: mapState({
+    ordersList: function(state) {
+      return state.restaurants.ordersList[this.$route.params.id - 1].restaurant
+        .orders;
+    },
+    menuTitle: function(state) {
+      return state.restaurants.ordersList[this.$route.params.id - 1].restaurant
+        .name;
+    },
+    creator: function(state) {
+      return state.restaurants.ordersList[this.$route.params.id - 1].restaurant
+        .owner.name;
+    },
+    // ordersList: (state) => state.restaurants.ordersList,
+  }),
+  watch: {
+    ordersList: {
+      deep: true,
+      handler(newVal) {
+        this.price = newVal.reduce(
+          (acc, e) => +e.price.replace(/\D/g, "") * e.quantity + acc,
+          0
+        );
+      },
+    },
+  },
 };
 </script>
 

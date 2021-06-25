@@ -48,6 +48,7 @@ export default {
   position: fixed;
   width: 100%;
   height: 55px;
+  /* z-index: 1000; */
 }
 .navbar-links {
   height: 55px;
